@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home_vector"
+            android:title="Inicio" />
+        <item
+            android:id="@+id/nav_favorites"
+            android:icon="@drawable/favorite_vector"
+            android:title="Favoritos"/>
+        <item
+            android:id="@+id/nav_attention"
+            android:icon="@drawable/client_vector"
+            android:title="Atención al cliente"/>
+        <item
+            android:id="@+id/nav_config"
+            android:icon="@drawable/config_vector"
+            android:title="Configuración"/>
+        <item
+            android:id="@+id/nav_report"
+            android:icon="@drawable/report_vector"
+            android:title="Reportar un problema"/>
+    </group>
+    <item
+        android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/logout_vector"
+                android:title="Logout"/>
+        </menu>
+    </item>
+</menu>

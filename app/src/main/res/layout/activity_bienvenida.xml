@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gris_oscuro"
+    tools:context=".Bienvenida">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bienvenido"
+        android:textStyle="bold"
+        android:textColor="@color/gris_hint"
+        android:layout_gravity="center"
+        android:textSize="28dp"
+        android:layout_marginTop="130dp"/>
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/logo_bienvenida"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NOMBRE DE USUARIO"
+        android:textColor="@color/naranja"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/msj_bienvenida"
+        android:textSize="18dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/gris_hint"
+        android:textAlignment="center"/>
+
+    <Button
+        android:id="@+id/btnEmpezar"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gris_oscuro"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:text="@string/btn_empezar"/>
+
+</LinearLayout>

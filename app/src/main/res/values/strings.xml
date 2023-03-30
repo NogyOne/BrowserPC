@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">BrowsePC</string>
+    <string name="iniciar_sesion">INICIAR SESIÓN</string>
+    <string name="crear_cuenta">CREAR CUENTA</string>
+    <string name="forgot_password">OLVIDÉ MI CONTRASEÑA</string>
+    <string name="btn_buscar">BUSCAR</string>
+    <string name="productos_relacionados">PRODUCTOS RELACIONADOS</string>
+    <string name="btn_empezar">EMPEZAR</string>
+    <string name="bienvenido">BIENVENIDO</string>
+    <string name="ofertas_flash">OFERTAS FLASH DEL DÍA</string>
+    <string name="txt_recuperacion">En caso de no poder recuperar tu contraseña, contactanos.</string>
+    <string name="btn_confirmar">CONFIRMAR RECUPERACIÓN</string>
+    <string name="btn_continuar">CONTINUAR</string>
+    <string name="btn_registrar">REGISTRAR</string>
+    <string name="msj_datos_cuenta">Ingresa el correo electrónico y el número telefónico asociado a tu cuenta.</string>
+    <string name="msj_datos_cuenta2">Luego podrás cambiar la contraseña</string>
+    <string name="msj_datos_cuenta3">En caso de no poder recuperar tu contraseña, contactanos.</string>
+    <string name="msj_bienvenida">Te damos la bienvenida a Browser PC donde estamos contentos por tenerte con nostros</string>
+
+
+    <!--SIDE MENU STRINGS-->
+    <string name="inicio">Inicio</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="atencion_cliente">Atención al cliente</string>
+    <string name="config">Configuración</string>
+    <string name="report">Reportar un problema</string>
+</resources>

@@ -27,10 +27,7 @@
             android:name=".Bienvenida"
             android:exported="false" />
         <activity
-            android:name=".InformacionAdicional"
-            android:exported="false" />
-        <activity
-            android:name=".MetodoPago"
+            android:name=".Carrito"
             android:exported="false" />
         <activity
             android:name=".Registro"

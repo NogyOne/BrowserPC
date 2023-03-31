@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gris_oscuro"
     android:orientation="vertical"
+    android:background="@color/gris_oscuro"
     android:fitsSystemWindows="true"
-    tools:context=".MainProductos">
+    tools:context=".Carrito">
 
     <androidx.drawerlayout.widget.DrawerLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -17,8 +17,9 @@
         android:layout_height="match_parent"
         android:id="@+id/drawer_layout"
         android:fitsSystemWindows="true"
+        android:background="@color/gris_oscuro"
         tools:openDrawer="start"
-        tools:context=".MainProductos">
+        tools:context=".Carrito">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,60 +28,41 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_carrito">
 
-                <Button
-                    android:id="@+id/btnBuscar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="10dp"
-                    android:text="@string/btn_buscar"
-                    android:textSize="12dp" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/inputs"
-                    android:hint="Buscar producto"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:textColorHint="@color/naranja"
-                    android:textSize="15dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="41dp"
+                    android:src="@drawable/cart_vector" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="@string/ofertas_flash"
-                    android:textColor="@color/naranja"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                <GridView
-                    android:id="@+id/gridOfertas"
                     android:layout_width="wrap_content"
-                    android:layout_height="620dp"
-                    android:layout_marginBottom="18dp"
-                    android:numColumns="1"
-                    android:paddingHorizontal="10dp">
+                    android:layout_height="wrap_content"
+                    android:text="CARRITO"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/naranja"
+                    android:textStyle="bold"/>
 
-                </GridView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/naranja"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp" />
         </LinearLayout>
+
 
         <com.google.android.material.navigation.NavigationView
             android:layout_width="wrap_content"

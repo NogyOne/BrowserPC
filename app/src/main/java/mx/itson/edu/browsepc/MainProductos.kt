@@ -51,10 +51,10 @@ class MainProductos: AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
                 R.id.cart -> {
-//                    startActivity(Intent(applicationContext, SettingsActivity::class.java))
-//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-//                    finish()
-//                    return@setOnItemSelectedListener true
+                    startActivity(Intent(applicationContext, Carrito::class.java))
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                    finish()
+                    return@setOnItemSelectedListener true
                 }
                 R.id.menu -> {
                     drawerLayout.openDrawer(GravityCompat.START)
@@ -73,6 +73,11 @@ class MainProductos: AppCompatActivity() {
         cargarProductos()
 
         gridOfertas.adapter = adapterOfertas
+
+        fab.setOnClickListener{
+            var intent: Intent = Intent(this, Carrito::class.java)
+            startActivity(intent)
+        }
 
         buscar.setOnClickListener{
             var intent: Intent = Intent(this, ProductosBusqueda::class.java)

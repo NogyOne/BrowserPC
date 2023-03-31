@@ -5,9 +5,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
 
 class ProductosBusqueda : AppCompatActivity() {
 
@@ -17,10 +23,44 @@ class ProductosBusqueda : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_productos)
 
-        val btnUser: Button = findViewById(R.id.btn_user)
-        val btnHome: Button = findViewById(R.id.btn_home)
-        val btnCart: Button = findViewById(R.id.btn_cart)
-        val btnMenu: Button = findViewById(R.id.btn_menu)
+        val buscar: Button = findViewById(R.id.btnBuscar)
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        val fab: FloatingActionButton = findViewById(R.id.fab)
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        val navigationView: NavigationView = findViewById(R.id.nav_view)
+
+        bottomNavigationView.selectedItemId = R.id.home
+
+        bottomNavigationView.setOnItemSelectedListener { item: MenuItem ->
+            when (item.itemId) {
+                R.id.home -> {
+                    startActivity(Intent(applicationContext, MainProductos::class.java))
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                    finish()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.cart -> {
+                    startActivity(Intent(applicationContext, Carrito::class.java))
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                    finish()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.menu -> {
+                    drawerLayout.openDrawer(GravityCompat.START)
+                }
+            }
+            false
+        }
+
+        fab.setOnClickListener{
+            var intent: Intent = Intent(this, Carrito::class.java)
+            startActivity(intent)
+        }
+
+        buscar.setOnClickListener{
+            var intent: Intent = Intent(this, ProductosBusqueda::class.java)
+            startActivity(intent)
+        }
 
         agregarProductos()
 
@@ -29,22 +69,6 @@ class ProductosBusqueda : AppCompatActivity() {
         var adaptador: AdaptadorProductos = AdaptadorProductos(this, productos)
         listView.adapter = adaptador
 
-        btnUser.setOnClickListener{
-
-        }
-
-        btnHome.setOnClickListener{
-            var intent: Intent = Intent(this, MainProductos::class.java)
-            startActivity(intent)
-        }
-
-        btnCart.setOnClickListener{
-
-        }
-
-        btnMenu.setOnClickListener{
-
-        }
     }
 
     fun agregarProductos(){

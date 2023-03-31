@@ -11,11 +11,13 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:windowFullscreen">true</item>
         <!-- Customize your theme here. -->
     </style>
     
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/slide_in</item>
         <item name="android:windowExitAnimation">@anim/slide_out</item>
+
     </style>
 </resources>

@@ -3,17 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/home"
-        android:title="Home"
-        android:icon="@drawable/home_vector"/>
-
+        android:id="@+id/menu"
+        android:title="Menu"
+        android:icon="@drawable/menu_icon" />
     <item
         android:id="@+id/cart"
         android:title="Carrito"
         android:icon="@drawable/cart_icon" />
     <item
-        android:id="@+id/menu"
-        android:title="Menu"
-        android:icon="@drawable/menu_icon" />
-
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/home_vector"/>
 </menu>

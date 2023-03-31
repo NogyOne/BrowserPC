@@ -1,15 +1,17 @@
 package mx.itson.edu.browsepc
 
-import android.app.Notification.Action
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -30,17 +32,36 @@ class MainProductos: AppCompatActivity() {
         val fab: FloatingActionButton = findViewById(R.id.fab)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navigationView: NavigationView = findViewById(R.id.nav_view)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+//        val toolbar: Toolbar = findViewById(R.id.toolbar)
 
-        setSupportActionBar()
+//        setSupportActionBar(toolbar)
+//
+//        val toggle: ActionBarDrawerToggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.app_name, R.string.app_name);
+//        drawerLayout.addDrawerListener(toggle);
+//        toggle.syncState();
 
-        val toggle: ActionBarDrawerToggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.app_name, R.string.app_name);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+        bottomNavigationView.selectedItemId = R.id.home
 
-
-
-
+        bottomNavigationView.setOnItemSelectedListener { item: MenuItem ->
+            when (item.itemId) {
+                R.id.home -> {
+                    startActivity(Intent(applicationContext, MainProductos::class.java))
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                    finish()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.cart -> {
+//                    startActivity(Intent(applicationContext, SettingsActivity::class.java))
+//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+//                    finish()
+//                    return@setOnItemSelectedListener true
+                }
+                R.id.menu -> {
+                    drawerLayout.openDrawer(GravityCompat.START)
+                }
+            }
+            false
+        }
 
 
         val buscar: Button = findViewById(R.id.btnBuscar)

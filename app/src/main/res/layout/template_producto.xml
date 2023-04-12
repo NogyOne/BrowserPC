@@ -6,13 +6,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="5dp"
-    android:background="@drawable/bg_productos">
+    android:background="@drawable/bg_carrito">
 
     <ImageView
         android:id="@+id/iv_foto"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:srcCompat="@drawable/ejemplo_producto"/>
+        android:layout_height="350dp"
+        android:layout_gravity="center"
+        tools:srcCompat="@drawable/ejemplo_procesadorryzen" />
 
     <TextView
         android:id="@+id/tv_nombre"
@@ -69,8 +70,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="10dp"
         android:paddingTop="15dp">
 
         <TextView

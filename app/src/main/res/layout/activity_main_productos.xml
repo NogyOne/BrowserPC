@@ -13,8 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/gris_oscuro"
-        >
+        android:background="@color/gris_oscuro">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,18 +56,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
+                android:layout_marginBottom="10dp"
                 android:text="@string/ofertas_flash"
                 android:textColor="@color/naranja"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
 
-            <GridView
-                android:id="@+id/gridOfertas"
+            <ListView
+                android:id="@+id/listView"
+                android:background="@drawable/bg_carrito"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="18dp"
-                android:numColumns="1"
+                android:layout_marginHorizontal="10dp"
+                android:dividerHeight="10dp"
                 android:paddingHorizontal="10dp"/>
         </LinearLayout>
 
@@ -111,6 +113,7 @@
                     android:id="@+id/fab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="25dp"
                     android:backgroundTint="@color/white"
                     android:src="@drawable/cart_icon"
                     app:layout_anchor="@+id/bottomAppBar"

@@ -18,7 +18,7 @@
         android:id="@+id/drawer_layout"
         android:fitsSystemWindows="true"
         tools:openDrawer="start"
-        tools:context=".MainProductos">
+        tools:context=".ProductosBusqueda">
 
         <LinearLayout
             android:layout_width="match_parent"

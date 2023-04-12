@@ -1,5 +1,6 @@
 package mx.itson.edu.browsepc
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -79,11 +80,11 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         adapterOfertas = ProductoAdapter(this,ofertasList)
         adapterPerifericos = ProductoAdapter(this, perifericosList)
-        var gridOfertas: GridView = findViewById(R.id.gridOfertas)
+        var listView: ListView = findViewById(R.id.listView)
 
         cargarProductos()
 
-        gridOfertas.adapter = adapterOfertas
+        listView.adapter = adapterOfertas
 
         fab.setOnClickListener{
             var intent: Intent = Intent(this, Carrito::class.java)
@@ -98,13 +99,13 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun cargarProductos(){
         ofertasList.add(Producto(R.drawable.ejemplo_producto,"PC DE VEGETTA777 Y WILLYREX Y RUBIUSOMG", "$2000", "30 disponibles"))
-        ofertasList.add(Producto(R.drawable.ejemplo_producto,"PC1", "$2000", "30 disponibles"))
-        ofertasList.add(Producto(R.drawable.ejemplo_producto,"PC2", "$2000", "30 disponibles"))
-        ofertasList.add(Producto(R.drawable.ejemplo_producto,"PC3", "$2000", "30 disponibles"))
-        perifericosList.add(Producto(R.drawable.ejemplo_producto,"Gabinete", "$2000", "30 disponibles"))
-        perifericosList.add(Producto(R.drawable.ejemplo_producto,"Gabinete1", "$2000", "30 disponibles"))
-        perifericosList.add(Producto(R.drawable.ejemplo_producto,"Gabinete2", "$2000", "30 disponibles"))
-        perifericosList.add(Producto(R.drawable.ejemplo_producto,"Gabinete3", "$2000", "30 disponibles"))
+        ofertasList.add(Producto(R.drawable.ejemplo_procesadorintel,"PROCESADOR INTEL CORE I3", "$2000", "30 disponibles"))
+        ofertasList.add(Producto(R.drawable.ejemplo_procesodorintel2,"PROCESADOR INTEL CORE I9", "$2000", "30 disponibles"))
+        ofertasList.add(Producto(R.drawable.ejemplo_procesadorryzen,"PROCESADOR AMD RYZEN 3", "$2000", "30 disponibles"))
+        ofertasList.add(Producto(R.drawable.ejemplo_procesadorryzen2,"PROCESADOR AMD RYZEN", "$2000", "30 disponibles"))
+        ofertasList.add(Producto(R.drawable.ejemplo_producto,"Gabinete1", "$2000", "30 disponibles"))
+        ofertasList.add(Producto(R.drawable.ejemplo_producto,"Gabinete2", "$2000", "30 disponibles"))
+        ofertasList.add(Producto(R.drawable.ejemplo_producto,"Gabinete3", "$2000", "30 disponibles"))
 
     }
 
@@ -149,6 +150,7 @@ class ProductoAdapter : BaseAdapter {
         return p0.toLong()
     }
 
+    @SuppressLint("ViewHolder")
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
         var producto = productos[p0]
         var inflador = contexto!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

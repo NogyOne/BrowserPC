@@ -17,8 +17,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 
-class MainProductos: AppCompatActivity() {
-
+class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    lateinit var toggle: ActionBarDrawerToggle
     var adapterOfertas: ProductoAdapter? = null
     var adapterPerifericos: ProductoAdapter? = null
     var ofertasList = ArrayList<Producto>()
@@ -32,6 +32,17 @@ class MainProductos: AppCompatActivity() {
         val fab: FloatingActionButton = findViewById(R.id.fab)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navigationView: NavigationView = findViewById(R.id.nav_view)
+
+        toggle = ActionBarDrawerToggle(this,drawerLayout,R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        navigationView.setNavigationItemSelectedListener(this)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
+
 //        val toolbar: Toolbar = findViewById(R.id.toolbar)
 
 //        setSupportActionBar(toolbar)
@@ -95,6 +106,25 @@ class MainProductos: AppCompatActivity() {
         perifericosList.add(Producto(R.drawable.ejemplo_producto,"Gabinete2", "$2000", "30 disponibles"))
         perifericosList.add(Producto(R.drawable.ejemplo_producto,"Gabinete3", "$2000", "30 disponibles"))
 
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.nav_logout ->{
+                startActivity(Intent(applicationContext, MainActivity::class.java))
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                finish()
+                true
+            }
+            else -> false
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)){
+            true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
 

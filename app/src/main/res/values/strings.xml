@@ -17,6 +17,8 @@
     <string name="msj_datos_cuenta3">En caso de no poder recuperar tu contraseña, contactanos.</string>
     <string name="msj_bienvenida">Te damos la bienvenida a Browser PC donde estamos contentos por tenerte con nostros</string>
 
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 
     <!--SIDE MENU STRINGS-->
     <string name="inicio">Inicio</string>

@@ -9,14 +9,15 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 
-class ProductosBusqueda : AppCompatActivity() {
-
+class ProductosBusqueda : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    lateinit var toggle: ActionBarDrawerToggle
     var productos: ArrayList<Producto> = ArrayList<Producto>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +29,14 @@ class ProductosBusqueda : AppCompatActivity() {
         val fab: FloatingActionButton = findViewById(R.id.fab)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navigationView: NavigationView = findViewById(R.id.nav_view)
+
+        toggle = ActionBarDrawerToggle(this,drawerLayout,R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        navigationView.setNavigationItemSelectedListener(this)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         bottomNavigationView.selectedItemId = R.id.home
 
@@ -80,6 +89,25 @@ class ProductosBusqueda : AppCompatActivity() {
         productos.add(Producto(R.drawable.ejemplo_procesadorryzen2, "LA PODEROSA", "$10000", "20 DISPONIBLES"))
         productos.add(Producto(R.drawable.ejemplo_producto, "LA PODEROSA", "$10000", "20 DISPONIBLES"))
         productos.add(Producto(R.drawable.ejemplo_producto, "LA PODEROSA", "$10000", "20 DISPONIBLES"))
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.nav_logout ->{
+                startActivity(Intent(applicationContext, MainActivity::class.java))
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                finish()
+                true
+            }
+            else -> false
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)){
+            true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
 

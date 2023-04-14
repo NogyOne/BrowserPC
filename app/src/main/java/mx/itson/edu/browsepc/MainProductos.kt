@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -99,7 +98,7 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun cargarProductos(){
         ofertasList.add(Producto(R.drawable.ejemplo_producto,"PC DE VEGETTA777 Y WILLYREX Y RUBIUSOMG", "$2000", "30 disponibles"))
-        ofertasList.add(Producto(R.drawable.ejemplo_procesadorintel,"PROCESADOR INTEL CORE I3", "$2000", "30 disponibles"))
+        ofertasList.add(Producto(R.drawable.ejemplo_procesadorintel,"INTEL PROCESADOR CORE I9-12900KF, S-1700, 5.20GHZ, 8-CORE", "$2000", "30 disponibles"))
         ofertasList.add(Producto(R.drawable.ejemplo_procesodorintel2,"PROCESADOR INTEL CORE I9", "$2000", "30 disponibles"))
         ofertasList.add(Producto(R.drawable.ejemplo_procesadorryzen,"PROCESADOR AMD RYZEN 3", "$2000", "30 disponibles"))
         ofertasList.add(Producto(R.drawable.ejemplo_procesadorryzen2,"PROCESADOR AMD RYZEN", "$2000", "30 disponibles"))
@@ -167,7 +166,7 @@ class ProductoAdapter : BaseAdapter {
         stock.setText(producto.stock)
 
         vista.setOnClickListener{
-            var intent = Intent(contexto, detalles::class.java)
+            var intent = Intent(contexto, Detalles::class.java)
             intent.putExtra("nombre", producto.nombre)
             intent.putExtra("image", producto.image)
             intent.putExtra("precio", producto.precio)

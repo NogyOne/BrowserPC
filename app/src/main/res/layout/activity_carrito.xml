@@ -29,7 +29,8 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:orientation="horizontal"
-                android:layout_margin="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="20dp"
                 android:background="@drawable/bg_carrito">
 
                 <ImageView
@@ -41,13 +42,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="CARRITO"
+                    android:layout_gravity="center"
                     android:layout_marginRight="10dp"
                     android:textColor="@color/naranja"
                     android:textStyle="bold"/>
 
                 <TextView
+                    android:id="@+id/tv_numItems"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="0"
                     android:layout_marginRight="10dp"
                     android:textColor="@color/naranja"

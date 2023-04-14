@@ -12,7 +12,10 @@
         android:theme="@style/Theme.BrowsePC"
         tools:targetApi="31">
         <activity
-            android:name=".detalles"
+            android:name=".AtencionCliente"
+            android:exported="false" />
+        <activity
+            android:name=".Detalles"
             android:exported="false" />
         <activity
             android:name=".MainProductos"

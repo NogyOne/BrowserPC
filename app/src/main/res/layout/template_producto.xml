@@ -10,7 +10,7 @@
 
     <ImageView
         android:id="@+id/iv_foto"
-        android:layout_width="wrap_content"
+        android:layout_width="335dp"
         android:layout_height="350dp"
         android:layout_gravity="center"
         tools:srcCompat="@drawable/ejemplo_procesadorryzen" />
@@ -19,10 +19,11 @@
         android:id="@+id/tv_nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/gris_hint"
+        android:textColor="@color/amarillo"
+        android:textStyle="bold"
         android:text="NOMBRE DEL PRODUCTO BIEN PASADORES DE LANZA"
         android:textAlignment="viewStart"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"/>
 
@@ -32,8 +33,7 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:paddingTop="15dp">
+        android:layout_marginLeft="20dp">
 
         <TextView
             android:id="@+id/tv_precioDescuento"
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="20% OFF"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:layout_marginRight="70dp"
             android:layout_marginLeft="70dp"
             android:textStyle="bold"
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="$$$$$"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:textStyle="bold"
             android:textColor="@color/gris_hint" />
     </LinearLayout>
@@ -71,8 +71,7 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="10dp"
-        android:paddingTop="15dp">
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -86,8 +85,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="30 DISPONIBLES"
-            android:textSize="18dp"
-            android:layout_marginLeft="80dp"
+            android:textSize="16dp"
+            android:layout_marginLeft="70dp"
             android:textColor="@color/azul_hex"
             android:textStyle="bold" />
 

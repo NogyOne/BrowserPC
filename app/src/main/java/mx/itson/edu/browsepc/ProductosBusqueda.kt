@@ -72,14 +72,14 @@ class ProductosBusqueda : AppCompatActivity() {
     }
 
     fun agregarProductos(){
-        productos.add(Producto(R.drawable.ejemplo_producto, "Gabinete", "35000", "30"))
-        productos.add(Producto(R.drawable.ejemplo_producto, "PCERDA", "4000", "320"))
-        productos.add(Producto(R.drawable.ejemplo_producto, "COMPUTADORA", "6000", "10"))
-        productos.add(Producto(R.drawable.ejemplo_producto, "LA PODEROSA", "10000", "20"))
-        productos.add(Producto(R.drawable.ejemplo_producto, "LA PODEROSA", "10000", "20"))
-        productos.add(Producto(R.drawable.ejemplo_producto, "LA PODEROSA", "10000", "20"))
-        productos.add(Producto(R.drawable.ejemplo_producto, "LA PODEROSA", "10000", "20"))
-        productos.add(Producto(R.drawable.ejemplo_producto, "LA PODEROSA", "10000", "20"))
+        productos.add(Producto(R.drawable.ejemplo_procesadorintel, "INTEL PROCESADOR CORE I9-12900KF, S-1700, 5.20GHZ, 8-CORE", "$35000", "30 DISPONIBLES"))
+        productos.add(Producto(R.drawable.ejemplo_producto, "PCERDA", "$4000", "320 DISPONIBLES"))
+        productos.add(Producto(R.drawable.ejemplo_procesodorintel2, "Procesador Intel", "$6000", "10 DISPONIBLES"))
+        productos.add(Producto(R.drawable.ejemplo_producto, "LA PODEROSA", "$10000", "20 DISPONIBLES"))
+        productos.add(Producto(R.drawable.ejemplo_procesadorryzen, "LA PODEROSA", "$10000", "20 DISPONIBLES"))
+        productos.add(Producto(R.drawable.ejemplo_procesadorryzen2, "LA PODEROSA", "$10000", "20 DISPONIBLES"))
+        productos.add(Producto(R.drawable.ejemplo_producto, "LA PODEROSA", "$10000", "20 DISPONIBLES"))
+        productos.add(Producto(R.drawable.ejemplo_producto, "LA PODEROSA", "$10000", "20 DISPONIBLES"))
     }
 }
 
@@ -105,17 +105,29 @@ private class AdaptadorProductos: BaseAdapter{
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var prod = productos[position]
+        var producto = productos[position]
         var inflador = LayoutInflater.from(contexto)
         var vista = inflador.inflate(R.layout.template_producto_busqueda, null)
 
-        var imagen = vista.findViewById(R.id.iv_foto) as ImageView
-        var nombre = vista.findViewById(R.id.tv_nombre) as TextView
-        var precio = vista.findViewById(R.id.tv_precioNormal) as TextView
+        var imagen: ImageView = vista.findViewById(R.id.iv_foto)
+        var nombre: TextView = vista.findViewById(R.id.tv_nombre)
+        var precio: TextView = vista.findViewById(R.id.tv_precioDescuento)
+        var stock: TextView = vista.findViewById(R.id.tv_stock)
 
-        imagen.setImageResource(prod.image)
-        nombre.setText(prod.nombre)
-        precio.setText("$${prod.precio}")
+        imagen.setImageResource(producto.image)
+        nombre.setText(producto.nombre)
+        precio.setText(producto.precio)
+        stock.setText(producto.stock)
+
+        vista.setOnClickListener{
+            var intent = Intent(contexto, Detalles::class.java)
+            intent.putExtra("nombre", producto.nombre)
+            intent.putExtra("image", producto.image)
+            intent.putExtra("precio", producto.precio)
+            intent.putExtra("stock", producto.stock)
+            contexto!!.startActivity(intent)
+        }
+
         return vista
     }
 }

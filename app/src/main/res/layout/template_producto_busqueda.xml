@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="10dp"
     android:background="@drawable/bg_carrito">
@@ -15,7 +15,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -29,6 +29,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="horizontal">
 
             <TextView
@@ -38,7 +39,7 @@
                 android:text="$$$$$"
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                android:textSize="22dp"/>
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/tv_descuento"
@@ -49,7 +50,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:textColor="@color/gris_hint"
-                android:textSize="18dp"/>
+                android:textSize="12dp"/>
 
             <TextView
                 android:id="@+id/tv_precioNormal"
@@ -58,9 +59,19 @@
                 android:text="$$$$$"
                 android:textStyle="bold"
                 android:textColor="@color/gris_hint"
-                android:textSize="18dp"/>
+                android:textSize="12dp"/>
 
         </LinearLayout>
+        <TextView
+            android:id="@+id/tv_stock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="STOCK"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/azul_hex"
+            android:textStyle="bold"
+            android:textSize="12dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

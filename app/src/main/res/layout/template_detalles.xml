@@ -1,118 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_gravity="center"
-    android:paddingVertical="20dp"
-    android:paddingHorizontal="10dp"
-    android:background="@color/black_claro">
+    android:id="@+id/drawer_layout"
+    android:fitsSystemWindows="true"
+    android:background="@color/black_claro"
+    tools:context=".Detalles">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
-        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="6dp"
+            android:background="@color/amarillo"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="25dp"
+            />
+
+        <ImageView
+            android:id="@+id/iv_producto"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ejemplo_procesodorintel2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="20dp"
+            android:layout_gravity="center">
+            <TextView
+                android:id="@+id/tv_stock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/azul_hex"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="777 DISPONIBLES"/>
+            <TextView
+                android:id="@+id/tv_precio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginLeft="100dp"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:text="$$$$$$"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/amarillo"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:layout_marginRight="180dp"
-            android:text="PRODUCTO"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/tv_nombre"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="80dp"
+                android:text="INTEL PROCESADOR CORE I9-12900KF, S-1700, 5.20GHZ, 8-CORE"
+                android:textColor="@color/gris_hint"
+                android:layout_gravity="center"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txtCantidad"
+                android:layout_width="77dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_cantidad"
+                android:hint="Cantidad"
+                android:textAlignment="center"
+                android:textColorHint="@color/gris_hint"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
             android:textSize="14dp"
-            android:textStyle="bold"
-            android:text="PÁGINA"/>
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="15dp"
+            android:text="Agregar a Favoritos"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="15dp"
+            android:text="Agregar al carrito"/>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/iv_producto"
-        android:layout_width="match_parent"
-        android:layout_height="320dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:src="@drawable/ejemplo_procesodorintel2" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="20dp"
-        android:layout_gravity="center">
-        <TextView
-            android:id="@+id/tv_stock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/azul_hex"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:text="777 DISPONIBLES"/>
-        <TextView
-            android:id="@+id/tv_precio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:layout_marginLeft="140dp"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:text="$$$$$$"/>
-
-    </LinearLayout>
-
-    <LinearLayout
+    <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="15dp"
-        android:layout_gravity="center">
+        android:layout_height="match_parent"
+        android:background="@color/gris_oscuro"
+        android:id="@+id/nav_view"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_bg"
+        app:menu="@menu/nav_menu"
+        app:itemIconTint="@color/naranja"
+        app:itemTextColor="@color/naranja"/>
 
-        <TextView
-            android:id="@+id/tv_nombre"
-            android:layout_width="180dp"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="100dp"
-            android:text="INTEL PROCESADOR CORE I9-12900KF, S-1700, 5.20GHZ, 8-CORE"
-            android:textColor="@color/gris_hint"
-            android:layout_gravity="center"
-            android:textSize="12dp"
-            android:textStyle="bold" />
+            android:layout_gravity="bottom"
+            android:backgroundTint="@color/gris_oscuro"
+            app:fabCradleMargin="10dp"
+            app:fabCradleRoundedCornerRadius="50dp">
 
-        <EditText
-            android:id="@+id/txtUsername"
-            android:layout_width="77dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="@drawable/bg_cantidad"
-            android:hint="Cantidad"
-            android:textAlignment="center"
-            android:textColorHint="@color/gris_hint"
-            android:textSize="12dp" />
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNavigationView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/bg_logins"
+                app:itemTextColor="@color/naranja"
+                app:labelVisibilityMode="labeled"
+                app:menu="@menu/bottom_menu"/>
 
-    </LinearLayout>
+        </com.google.android.material.bottomappbar.BottomAppBar>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:textSize="14dp"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="15dp"
-        android:text="Agregar a Favoritos"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/cart_icon"
+            app:layout_anchor="@id/bottomAppBar"
+            app:maxImageSize="40dp"
+            app:tint="@color/naranja" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:textSize="14dp"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="15dp"
-        android:text="Agregar al carrito"/>
-
-</LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

@@ -37,8 +37,7 @@ class ProductosBusqueda : AppCompatActivity(), NavigationView.OnNavigationItemSe
         navigationView.setNavigationItemSelectedListener(this)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        bottomNavigationView.selectedItemId = R.id.home
+        bottomNavigationView.selectedItemId = R.id.cart
 
         bottomNavigationView.setOnItemSelectedListener { item: MenuItem ->
             when (item.itemId) {
@@ -95,6 +94,12 @@ class ProductosBusqueda : AppCompatActivity(), NavigationView.OnNavigationItemSe
         return when (item.itemId) {
             R.id.nav_logout ->{
                 startActivity(Intent(applicationContext, MainActivity::class.java))
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                finish()
+                true
+            }
+            R.id.nav_attention ->{
+                startActivity(Intent(applicationContext, AtencionCliente::class.java))
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                 finish()
                 true

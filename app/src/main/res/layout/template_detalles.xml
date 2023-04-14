@@ -13,7 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
         <View
             android:layout_width="wrap_content"
             android:layout_height="6dp"
@@ -90,25 +91,83 @@
 
         </LinearLayout>
 
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:textSize="14dp"
-            android:textColor="@color/black"
-            android:layout_marginTop="10dp"
-            android:layout_marginHorizontal="15dp"
-            android:text="Agregar a Favoritos"/>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <Button
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="15dp"
+                android:text="Agregar a Favoritos"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="15dp"
+                android:text="Agregar al carrito"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:textSize="14dp"
-            android:textColor="@color/black"
-            android:layout_marginTop="10dp"
-            android:layout_marginHorizontal="15dp"
-            android:text="Agregar al carrito"/>
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:context=".MainActivity">
+                <FrameLayout
+                    android:id="@+id/frame_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <com.google.android.material.bottomappbar.BottomAppBar
+                    android:id="@+id/bottomAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:backgroundTint="@color/gris_oscuro"
+                    app:fabCradleMargin="10dp"
+                    app:fabCradleRoundedCornerRadius="50dp">
+
+                    <com.google.android.material.bottomnavigation.BottomNavigationView
+                        android:id="@+id/bottomNavigationView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/bg_logins"
+                        app:itemTextColor="@color/naranja"
+                        app:labelVisibilityMode="labeled"
+                        app:menu="@menu/bottom_menu"/>
+
+                </com.google.android.material.bottomappbar.BottomAppBar>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="25dp"
+                    android:backgroundTint="@color/white"
+                    android:src="@drawable/cart_icon"
+                    app:layout_anchor="@+id/bottomAppBar"
+                    app:layout_anchorGravity="top|center"
+                    app:maxImageSize="40dp"
+                    app:tint="@color/naranja" />
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </LinearLayout>
     </LinearLayout>
-
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
@@ -121,41 +180,4 @@
         app:itemIconTint="@color/naranja"
         app:itemTextColor="@color/naranja"/>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottomAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:backgroundTint="@color/gris_oscuro"
-            app:fabCradleMargin="10dp"
-            app:fabCradleRoundedCornerRadius="50dp">
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigationView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/bg_logins"
-                app:itemTextColor="@color/naranja"
-                app:labelVisibilityMode="labeled"
-                app:menu="@menu/bottom_menu"/>
-
-        </com.google.android.material.bottomappbar.BottomAppBar>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/cart_icon"
-            app:layout_anchor="@id/bottomAppBar"
-            app:maxImageSize="40dp"
-            app:tint="@color/naranja" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

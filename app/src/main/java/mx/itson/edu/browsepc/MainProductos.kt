@@ -116,6 +116,12 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 finish()
                 true
             }
+            R.id.nav_attention ->{
+                startActivity(Intent(applicationContext, AtencionCliente::class.java))
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                finish()
+                true
+            }
             else -> false
         }
     }

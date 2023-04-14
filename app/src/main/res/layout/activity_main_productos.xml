@@ -68,7 +68,7 @@
                 android:background="@drawable/bg_carrito"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="18dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginHorizontal="10dp"
                 android:dividerHeight="10dp"
                 android:paddingHorizontal="10dp"/>
@@ -94,6 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
+                    android:backgroundTint="@color/gris_oscuro"
                     app:fabCradleMargin="10dp"
                     app:fabCradleRoundedCornerRadius="50dp">
 

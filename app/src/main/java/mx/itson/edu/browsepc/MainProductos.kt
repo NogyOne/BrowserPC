@@ -165,6 +165,16 @@ class ProductoAdapter : BaseAdapter {
         nombre.setText(producto.nombre)
         precio.setText(producto.precio)
         stock.setText(producto.stock)
+
+        vista.setOnClickListener{
+            var intent = Intent(contexto, detalles::class.java)
+            intent.putExtra("nombre", producto.nombre)
+            intent.putExtra("image", producto.image)
+            intent.putExtra("precio", producto.precio)
+            intent.putExtra("stock", producto.stock)
+            contexto!!.startActivity(intent)
+        }
+
         return vista
     }
 }

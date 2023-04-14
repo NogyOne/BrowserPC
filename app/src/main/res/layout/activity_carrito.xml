@@ -18,7 +18,6 @@
         android:id="@+id/drawer_layout"
         android:fitsSystemWindows="true"
         android:background="@color/gris_oscuro"
-        tools:openDrawer="start"
         tools:context=".Carrito">
 
         <LinearLayout
@@ -85,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:background="@drawable/bg_logins"
+                android:backgroundTint="@color/gris_oscuro"
                 app:fabCradleMargin="10dp"
                 app:fabCradleRoundedCornerRadius="50dp">
 

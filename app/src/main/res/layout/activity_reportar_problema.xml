@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout"
+    android:fitsSystemWindows="true"
+    android:background="@color/gris_oscuro"
+    tools:context=".ReportarProblema">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/sad_logo" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/que_esta_mal"
+            android:textColor="@color/naranja"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"
+            android:textSize="30dp"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="180dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center"
+            android:background="@color/naranja"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="15dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_carrito"
+            android:text="@string/msj_reporte"
+            android:padding="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:textAlignment="center"
+            android:textStyle="italic"
+            android:textColor="@color/gris_hint"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_gravity="center"
+            android:background="@color/amarillo"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="20dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Asunto"
+            android:textColorHint="@color/gris_hint"
+            android:textColor="@color/gris_hint"
+            android:layout_marginHorizontal="60dp"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/inputs"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="134dp"
+            android:layout_marginHorizontal="60dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/inputs"
+            android:hint="Problema"
+            android:padding="10dp"
+            android:textColor="@color/gris_hint"
+            android:textColorHint="@color/gris_hint" />
+
+        <Button
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="80dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:text="@string/btn_reportar"
+            android:textColor="@color/black"
+            android:textSize="14dp" />
+
+    </LinearLayout>
+
+
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:backgroundTint="@color/gris_oscuro"
+            app:fabCradleMargin="10dp"
+            app:fabCradleRoundedCornerRadius="50dp">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNavigationView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/bg_logins"
+                app:itemTextColor="@color/naranja"
+                app:labelVisibilityMode="labeled"
+                app:menu="@menu/bottom_menu"/>
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/cart_icon"
+            app:layout_anchor="@id/bottomAppBar"
+            app:maxImageSize="40dp"
+            app:tint="@color/naranja" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/gris_oscuro"
+        android:id="@+id/nav_view"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_bg"
+        app:menu="@menu/nav_menu"
+        app:itemIconTint="@color/naranja"
+        app:itemTextColor="@color/naranja"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>

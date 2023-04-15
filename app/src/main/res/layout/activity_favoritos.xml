@@ -8,7 +8,7 @@
     android:background="@color/gris_oscuro"
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
-    tools:context=".ProductosBusqueda">
+    tools:context=".Favoritos">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/productos_relacionados"
+                android:text="FAVORITOS"
                 android:layout_marginLeft="15dp"
                 android:layout_marginBottom="10dp"
                 android:textSize="18dp"
@@ -61,11 +61,11 @@
             <ListView
                 android:id="@+id/listView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
+                android:layout_height="250dp"
                 android:layout_marginHorizontal="10dp"
-                android:dividerHeight="10dp"
-                android:background="@drawable/bg_carrito" />
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_carrito"
+                android:dividerHeight="10dp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

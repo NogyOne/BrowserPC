@@ -75,7 +75,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MESES SIN INTERESES"
+            android:text="@string/txt_meses"
             android:layout_marginBottom="10dp"
             android:textColor="@color/gris_hint"
             android:textSize="12dp" />
@@ -83,7 +83,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ENVÍO GRATIS"
+            android:text="@string/txt_envio"
             android:textColor="@color/gris_hint"
             android:textSize="18dp" />
     </LinearLayout>

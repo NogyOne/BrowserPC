@@ -75,6 +75,18 @@ class AtencionCliente : AppCompatActivity(), NavigationView.OnNavigationItemSele
                 finish()
                 true
             }
+            R.id.nav_report ->{
+                startActivity(Intent(applicationContext, ReportarProblema::class.java))
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                finish()
+                true
+            }
+            R.id.nav_favorites ->{
+                startActivity(Intent(applicationContext, Favoritos::class.java))
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                finish()
+                true
+            }
             else -> false
         }
     }

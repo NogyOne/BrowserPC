@@ -76,7 +76,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ENVÍO GRATIS"
+            android:text="@string/txt_envio"
             android:textSize="18dp"
             android:textColor="@color/gris_hint" />
 

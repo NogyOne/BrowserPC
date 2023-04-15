@@ -104,7 +104,7 @@
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp"
                 android:layout_marginHorizontal="15dp"
-                android:text="Agregar a Favoritos"/>
+                android:text="@string/btn_favoritos"/>
 
             <Button
                 android:layout_width="match_parent"
@@ -113,7 +113,7 @@
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp"
                 android:layout_marginHorizontal="15dp"
-                android:text="Agregar al carrito"/>
+                android:text="@string/btn_carrito"/>
 
         </LinearLayout>
 

@@ -18,22 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:paddingRight="20dp"
         android:paddingLeft="20dp">
 
-        <EditText
-            android:id="@+id/txtNombre"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:hint="Nombre de usuario"
-            android:textSize="15dp"
-            android:background="@drawable/inputs"
-            android:textColorHint="@color/gris_hint"
-            android:inputType="text"
-            android:layout_marginBottom="20dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"/>
 
         <EditText
             android:id="@+id/txtUsername"
@@ -91,6 +79,7 @@
             android:id="@+id/btnRegistrar"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:textColor="@color/gris_oscuro"
             android:layout_gravity="center"
             android:textStyle="bold"

@@ -29,6 +29,7 @@
             android:layout_height="40dp"
             android:background="@drawable/inputs"
             android:textColorHint="@color/gris_hint"
+            android:textColor="@color/gris_hint"
             android:hint="Nombre de usuario"
             android:textSize="15dp"
             android:inputType="text"
@@ -42,6 +43,7 @@
             android:layout_height="40dp"
             android:background="@drawable/inputs"
             android:textColorHint="@color/gris_hint"
+            android:textColor="@color/gris_hint"
             android:hint="Correo electrónico"
             android:textSize="15dp"
             android:inputType="textEmailAddress"
@@ -50,11 +52,12 @@
             android:paddingRight="10dp"/>
 
         <EditText
-            android:id="@+id/txtContraseña"
+            android:id="@+id/txtContrasena"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/inputs"
             android:textColorHint="@color/gris_hint"
+            android:textColor="@color/gris_hint"
             android:hint="Contraseña"
             android:textSize="15dp"
             android:inputType="textPassword"
@@ -68,6 +71,7 @@
             android:layout_height="40dp"
             android:background="@drawable/inputs"
             android:textColorHint="@color/gris_hint"
+            android:textColor="@color/gris_hint"
             android:hint="Número de celular"
             android:textSize="15dp"
             android:inputType="number|phone"

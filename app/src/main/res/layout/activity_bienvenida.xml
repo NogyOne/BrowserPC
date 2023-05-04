@@ -26,8 +26,10 @@
         android:layout_gravity="center"/>
 
     <TextView
+        android:id="@+id/txtUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAllCaps="true"
         android:text="NOMBRE DE USUARIO"
         android:textColor="@color/naranja"
         android:textStyle="bold"

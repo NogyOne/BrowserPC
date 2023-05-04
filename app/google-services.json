@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "462790407230",
+    "project_id": "browsepc",
+    "storage_bucket": "browsepc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462790407230:android:6888e0c461742d355c4d6f",
+        "android_client_info": {
+          "package_name": "mx.itson.edu.browsepc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "462790407230-62os724tkj228du8j1pf0ing9ioj4di1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUNKHenu19B8ibt45oVf-5yLsmmg5kYH0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "462790407230-62os724tkj228du8j1pf0ing9ioj4di1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

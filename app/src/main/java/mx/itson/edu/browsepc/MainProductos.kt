@@ -16,8 +16,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private val db = FirebaseFirestore.getInstance();
+    private val productos = db.collection("productos");
+
     lateinit var toggle: ActionBarDrawerToggle
     var adapterOfertas: ProductoAdapter? = null
     var adapterPerifericos: ProductoAdapter? = null
@@ -97,14 +101,21 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun cargarProductos(){
-        ofertasList.add(Producto(R.drawable.ejemplo_producto,"PC DE VEGETTA777 Y WILLYREX Y RUBIUSOMG", "$2000", "30 disponibles"))
+        productos.get().addOnSuccessListener { querySnapshot ->
+            for(document in querySnapshot){
+                val producto = document.toObject(Producto::class.java)
+                ofertasList.add(producto)
+            }
+        }
+
+        /*ofertasList.add(Producto(R.drawable.ejemplo_producto,"PC DE VEGETTA777 Y WILLYREX Y RUBIUSOMG", "$2000", "30 disponibles"))
         ofertasList.add(Producto(R.drawable.ejemplo_procesadorintel,"INTEL PROCESADOR CORE I9-12900KF, S-1700, 5.20GHZ, 8-CORE", "$2000", "30 disponibles"))
         ofertasList.add(Producto(R.drawable.ejemplo_procesodorintel2,"PROCESADOR INTEL CORE I9", "$2000", "30 disponibles"))
         ofertasList.add(Producto(R.drawable.ejemplo_procesadorryzen,"PROCESADOR AMD RYZEN 3", "$2000", "30 disponibles"))
         ofertasList.add(Producto(R.drawable.ejemplo_procesadorryzen2,"PROCESADOR AMD RYZEN", "$2000", "30 disponibles"))
         ofertasList.add(Producto(R.drawable.ejemplo_producto,"Gabinete1", "$2000", "30 disponibles"))
         ofertasList.add(Producto(R.drawable.ejemplo_producto,"Gabinete2", "$2000", "30 disponibles"))
-        ofertasList.add(Producto(R.drawable.ejemplo_producto,"Gabinete3", "$2000", "30 disponibles"))
+        ofertasList.add(Producto(R.drawable.ejemplo_producto,"Gabinete3", "$2000", "30 disponibles"))*/
 
     }
 
@@ -178,7 +189,7 @@ class ProductoAdapter : BaseAdapter {
         var precio: TextView = vista.findViewById(R.id.tv_precioDescuento)
         var stock: TextView = vista.findViewById(R.id.tv_stock)
 
-        imagen.setImageResource(producto.image)
+        imagen.setImageResource(-producto.imagen)
         nombre.setText(producto.nombre)
         precio.setText(producto.precio)
         stock.setText(producto.stock)
@@ -186,7 +197,7 @@ class ProductoAdapter : BaseAdapter {
         vista.setOnClickListener{
             var intent = Intent(contexto, Detalles::class.java)
             intent.putExtra("nombre", producto.nombre)
-            intent.putExtra("image", producto.image)
+            intent.putExtra("image", producto.imagen)
             intent.putExtra("precio", producto.precio)
             intent.putExtra("stock", producto.stock)
             contexto!!.startActivity(intent)

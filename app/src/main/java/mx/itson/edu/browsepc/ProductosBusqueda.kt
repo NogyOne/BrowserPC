@@ -80,7 +80,7 @@ class ProductosBusqueda : AppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
     fun agregarProductos(){
-        productos.add(Producto(R.drawable.ejemplo_procesadorintel, "INTEL PROCESADOR CORE I9-12900KF, S-1700, 5.20GHZ, 8-CORE", "$35000", "30 DISPONIBLES"))
+        productos.add(Producto(R.drawable.ejemplo_procesadorintel, "INTEL PROCESADOR CORE I3-12900KF, S-1700, 5.20GHZ, 8-CORE", "$35000", "30 DISPONIBLES"))
         productos.add(Producto(R.drawable.ejemplo_producto, "PCERDA", "$4000", "320 DISPONIBLES"))
         productos.add(Producto(R.drawable.ejemplo_procesodorintel2, "Procesador Intel", "$6000", "10 DISPONIBLES"))
         productos.add(Producto(R.drawable.ejemplo_producto, "LA PODEROSA", "$10000", "20 DISPONIBLES"))
@@ -159,7 +159,7 @@ private class AdaptadorProductos: BaseAdapter{
         var precio: TextView = vista.findViewById(R.id.tv_precioDescuento)
         var stock: TextView = vista.findViewById(R.id.tv_stock)
 
-        imagen.setImageResource(producto.image)
+        imagen.setImageResource(producto.imagen)
         nombre.setText(producto.nombre)
         precio.setText(producto.precio)
         stock.setText(producto.stock)
@@ -167,7 +167,7 @@ private class AdaptadorProductos: BaseAdapter{
         vista.setOnClickListener{
             var intent = Intent(contexto, Detalles::class.java)
             intent.putExtra("nombre", producto.nombre)
-            intent.putExtra("image", producto.image)
+            intent.putExtra("image", producto.imagen)
             intent.putExtra("precio", producto.precio)
             intent.putExtra("stock", producto.stock)
             contexto!!.startActivity(intent)

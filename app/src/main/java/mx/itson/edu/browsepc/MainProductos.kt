@@ -3,7 +3,10 @@ package mx.itson.edu.browsepc
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -17,15 +20,22 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.IOException
 
 class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private val db = FirebaseFirestore.getInstance();
     private val productos = db.collection("productos");
 
+    private val storage = FirebaseStorage.getInstance()
+    private val imagesRef = storage.getReference().child("gs://browsepc.appspot.com")
+
     lateinit var toggle: ActionBarDrawerToggle
     var adapterOfertas: ProductoAdapter? = null
     var adapterPerifericos: ProductoAdapter? = null
-    var ofertasList = ArrayList<Producto>()
+    var ofertasList = ArrayList<prod>()
     var perifericosList = ArrayList<Producto>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,7 +92,7 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val buscar: Button = findViewById(R.id.btnBuscar)
 
         adapterOfertas = ProductoAdapter(this,ofertasList)
-        adapterPerifericos = ProductoAdapter(this, perifericosList)
+        //adapterPerifericos = ProductoAdapter(this, perifericosList)
         var listView: ListView = findViewById(R.id.listView)
 
         cargarProductos()
@@ -103,10 +113,28 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun cargarProductos(){
         productos.get().addOnSuccessListener { querySnapshot ->
             for(document in querySnapshot){
-                val producto = document.toObject(Producto::class.java)
+                val producto = document.toObject(prod::class.java)
                 ofertasList.add(producto)
             }
         }
+
+       /* imagesRef.listAll().addOnSuccessListener { listResult ->
+            listResult.items.forEachIndexed{index, item ->
+                val localFile = File.createTempFile("images","jgp")
+                item.getFile(localFile).addOnSuccessListener{
+                    try {
+                        val bitmap = BitmapFactory.decodeFile(localFile.path)
+                        val outputStream = ByteArrayOutputStream()
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                        val imageBytes = outputStream.toByteArray()
+                        val base64String = Base64.encodeToString(imageBytes, Base64.DEFAULT)
+                        ofertasList[index].imagen = base64String
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+        }*/
 
         /*ofertasList.add(Producto(R.drawable.ejemplo_producto,"PC DE VEGETTA777 Y WILLYREX Y RUBIUSOMG", "$2000", "30 disponibles"))
         ofertasList.add(Producto(R.drawable.ejemplo_procesadorintel,"INTEL PROCESADOR CORE I9-12900KF, S-1700, 5.20GHZ, 8-CORE", "$2000", "30 disponibles"))
@@ -158,10 +186,10 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 }
 
 class ProductoAdapter : BaseAdapter {
-    var productos = ArrayList<Producto>()
+    var productos = ArrayList<prod>()
     var contexto: Context? = null
 
-    constructor(context: Context, productos: ArrayList<Producto>) {
+    constructor(context: Context, productos: ArrayList<prod>) {
         this.productos = productos
         this.contexto = context
     }
@@ -189,10 +217,10 @@ class ProductoAdapter : BaseAdapter {
         var precio: TextView = vista.findViewById(R.id.tv_precioDescuento)
         var stock: TextView = vista.findViewById(R.id.tv_stock)
 
-        imagen.setImageResource(-producto.imagen)
-        nombre.setText(producto.nombre)
-        precio.setText(producto.precio)
-        stock.setText(producto.stock)
+        //imagen.set
+        //nombre.setText(producto.nombre)
+        //precio.setText(producto.precio)
+        //stock.setText(producto.stock)
 
         vista.setOnClickListener{
             var intent = Intent(contexto, Detalles::class.java)

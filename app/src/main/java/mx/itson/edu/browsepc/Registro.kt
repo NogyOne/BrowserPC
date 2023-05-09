@@ -13,7 +13,10 @@ import org.w3c.dom.Text
 
 class Registro : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
-    private val collection = db.collection("usuarios")
+    private val collectionUsers = db.collection("usuarios")
+    private val collectionFavs = db.collection("favoritos")
+    private val collectionCart = db.collection("carrito")
+    private val collectionCartProd = db.collection("carrito_productos")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,18 +40,65 @@ class Registro : AppCompatActivity() {
 
                 }else->{//Register
                 val user = Usuario(userName.text.toString(), email.text.toString(), contrasena.text.toString(), celular.text.toString())
-                collection.add(user).addOnSuccessListener { documentReference ->
-                    Log.d(TAG, "Usuario agregado con ID: ${documentReference.id}")
-                    var intent: Intent = Intent(this, Bienvenida::class.java)
-                    intent.putExtra("username", userName.text.toString())
-                    startActivity(intent)
-                }
-                    .addOnFailureListener{ e ->
-                        Log.w(TAG, "Error al registrar usuario", e)
+
+                val query = collectionUsers.whereEqualTo("email", email.text.toString())
+                query.get().addOnSuccessListener { document ->
+                    if(document.size() == 0){
+                        if(registro(user)){
+                            var intent: Intent = Intent(this, Bienvenida::class.java)
+                            intent.putExtra("username", user.username)
+                            startActivity(intent)
+                        }else{
+                            Toast.makeText(baseContext, "Ha ocurrido un error con el registro, vuelve a intentar", Toast.LENGTH_SHORT).show()
+                        }
+                    }else if(document.size() >= 1){
+                        Toast.makeText(baseContext, "El correo ya está asociado a otro usuario", Toast.LENGTH_SHORT).show()
                     }
+                }
             }
             }
         }
+    }
+
+    fun registro(user: Usuario): Boolean {
+        var result: Boolean = true
+        collectionUsers.add(user).addOnSuccessListener { userReference ->
+            Log.d(TAG, "Usuario agregado con ID: ${userReference.id}")
+
+            val carrito = CarritoDom(userReference.id)
+            val favoritos = FavoritosDom(userReference.id)
+
+            collectionCart.add(carrito).addOnSuccessListener { cartReference ->
+                Log.d(TAG, "Carrito creado y agregado con ID: ${cartReference.id}")
+
+                val carritoProds = Carrito_Productos(cartReference.id)
+                collectionCartProd.add(carritoProds).addOnSuccessListener { cartProdsReference ->
+                    Log.d(TAG, "CarritoProductos creado y agregado con ID: ${cartProdsReference.id} ${carritoProds.id_carrito}")
+                }
+                    .addOnFailureListener{ e ->
+                        Log.w(TAG, "Error al registrar CarritoProductos", e)
+                        result = false
+                    }
+            }
+                .addOnFailureListener{ e ->
+                    Log.w(TAG, "Error al registrar carrito", e)
+                    result = false
+                }
+
+            collectionFavs.add(favoritos).addOnSuccessListener { favsReference ->
+                Log.d(TAG, "Favoritos creado y agregado con ID: ${favsReference.id}")
+            }
+                .addOnFailureListener{ e ->
+                    Log.w(TAG, "Error al registrar favoritos", e)
+                    result = false
+                }
+        }
+            .addOnFailureListener{ e ->
+                Log.w(TAG, "Error al registrar usuario", e)
+                result = false
+            }
+
+        return result
     }
 
     fun validarEmail(email: String): Boolean {

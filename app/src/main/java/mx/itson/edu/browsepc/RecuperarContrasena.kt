@@ -27,7 +27,7 @@ class RecuperarContrasena : AppCompatActivity() {
                 txtEmail.text.isEmpty() || txtCelular.text.isEmpty() -> {
                     Toast.makeText(baseContext, "Campos obligatorios para la recuperación", Toast.LENGTH_SHORT).show()
                 }else -> {
-                    val query = collection.whereEqualTo("correo", txtEmail.text.toString())
+                    val query = collection.whereEqualTo("email", txtEmail.text.toString())
                     query.get().addOnSuccessListener { document ->
                         if(document.size() == 1){
                             val userData = document.documents.get(0).data
@@ -35,6 +35,7 @@ class RecuperarContrasena : AppCompatActivity() {
 
                             if(txtCelular.text.toString() == storeNum){
                                 var intent: Intent = Intent(this, NuevaContrasena::class.java)
+                                intent.putExtra("email", txtEmail.text.toString())
                                 startActivity(intent)
                             }else{
                                 Toast.makeText(baseContext, "El email y número telefónico no coinciden", Toast.LENGTH_SHORT).show()

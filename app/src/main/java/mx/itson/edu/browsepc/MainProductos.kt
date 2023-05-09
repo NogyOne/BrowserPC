@@ -36,7 +36,6 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     var adapterOfertas: ProductoAdapter? = null
     var adapterPerifericos: ProductoAdapter? = null
     var ofertasList = ArrayList<prod>()
-    var perifericosList = ArrayList<Producto>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

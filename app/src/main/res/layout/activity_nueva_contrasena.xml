@@ -16,14 +16,15 @@
 
 
     <EditText
-        android:id="@+id/txtCorreo"
+        android:id="@+id/txtContrasenaNew"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:hint="Nueva contraseña"
         android:textSize="15dp"
+        android:inputType="textPassword"
         android:background="@drawable/inputs"
         android:textColorHint="@color/gris_hint"
-        android:inputType="text"
+        android:textColor="@color/gris_hint"
         android:layout_marginTop="80dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
@@ -32,14 +33,15 @@
         android:paddingRight="10dp"/>
 
     <EditText
-        android:id="@+id/txtNumero"
+        android:id="@+id/txtConfirmarCont"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:hint="Confirmar contraseña"
+        android:inputType="textPassword"
         android:textSize="15dp"
         android:background="@drawable/inputs"
         android:textColorHint="@color/gris_hint"
-        android:inputType="text"
+        android:textColor="@color/gris_hint"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="20dp"

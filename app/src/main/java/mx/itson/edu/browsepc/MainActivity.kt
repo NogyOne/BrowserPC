@@ -1,8 +1,10 @@
 package mx.itson.edu.browsepc
 
+import android.content.ContentValues
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity() {
                             val storePass = userData!!["password"] as String
 
                             if(password.text.toString() == storePass.toString()){
+                                Log.d(ContentValues.TAG, "Usuario logueado con ID: ${document.documents.get(0).id}")
                                 var intent: Intent = Intent(this, Bienvenida::class.java)
                                 intent.putExtra("username", userName.text.toString())
                                 startActivity(intent)

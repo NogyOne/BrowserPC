@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -68,10 +69,10 @@ class Detalles : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         val bundle = intent.extras
 
         if(bundle != null){
-            iv_producto.setImageResource(bundle.getInt("image"))
+            Glide.with(this).load(bundle.getString("image")).into(iv_producto)
             tv_nombre.setText(bundle.getString("nombre"))
-            tv_stock.setText(bundle.getString("stock"))
-            tv_precio.setText(bundle.getString("precio"))
+            tv_stock.setText(bundle.getInt("stock").toString())
+            tv_precio.setText(bundle.getFloat("precio").toString())
         }
     }
 

@@ -20,7 +20,7 @@
             android:layout_height="6dp"
             android:background="@color/amarillo"
             android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="65dp"
             />
 
         <ImageView
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="320dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="20dp"
             android:src="@drawable/ejemplo_procesodorintel2" />
 

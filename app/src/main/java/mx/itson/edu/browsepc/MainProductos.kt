@@ -1,12 +1,14 @@
 package mx.itson.edu.browsepc
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -16,6 +18,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -29,7 +32,7 @@ import java.io.File
 import java.io.IOException
 
 class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    var listView: ListView = findViewById(R.id.listView)
+    lateinit var listView: ListView
 
     lateinit var toggle: ActionBarDrawerToggle
     var adapterOfertas: ProductoAdapter? = null
@@ -39,6 +42,8 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_productos)
+
+        listView = findViewById(R.id.listView)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         val fab: FloatingActionButton = findViewById(R.id.fab)
@@ -84,8 +89,9 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         cargarProductos()
+        println("Lista: " + ofertasList.size)
 
-        listView.adapter = adapterOfertas
+
 
         fab.setOnClickListener{
             var intent: Intent = Intent(this, Carrito::class.java)
@@ -102,25 +108,27 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val db = Firebase.firestore
         val collectionProductos = db.collection("productos")
 
+        val productos = ArrayList<prod>()
         collectionProductos.get().addOnSuccessListener { documents ->
-            val productos = mutableListOf<prod>()
+            println("entro al addOnSuccessListener ")
             for(document in documents){
                 val producto = document.toObject(prod::class.java)
-                productos.add(producto)
-
-                val storageRef = Firebase.storage.reference.child(producto.imagen)
-
+                ofertasList.add(producto)
+                //val storageRef = Firebase.storage.reference.child(producto.imagen)
             }
+            listView.adapter = adapterOfertas
+        }.addOnFailureListener{e ->
+            Log.w(TAG, "Error al obtener los documentos", e)
         }
 
-        /*ofertasList.add(Producto(R.drawable.ejemplo_producto,"PC DE VEGETTA777 Y WILLYREX Y RUBIUSOMG", "$2000", "30 disponibles"))
-        ofertasList.add(Producto(R.drawable.ejemplo_procesadorintel,"INTEL PROCESADOR CORE I9-12900KF, S-1700, 5.20GHZ, 8-CORE", "$2000", "30 disponibles"))
-        ofertasList.add(Producto(R.drawable.ejemplo_procesodorintel2,"PROCESADOR INTEL CORE I9", "$2000", "30 disponibles"))
-        ofertasList.add(Producto(R.drawable.ejemplo_procesadorryzen,"PROCESADOR AMD RYZEN 3", "$2000", "30 disponibles"))
-        ofertasList.add(Producto(R.drawable.ejemplo_procesadorryzen2,"PROCESADOR AMD RYZEN", "$2000", "30 disponibles"))
-        ofertasList.add(Producto(R.drawable.ejemplo_producto,"Gabinete1", "$2000", "30 disponibles"))
-        ofertasList.add(Producto(R.drawable.ejemplo_producto,"Gabinete2", "$2000", "30 disponibles"))
-        ofertasList.add(Producto(R.drawable.ejemplo_producto,"Gabinete3", "$2000", "30 disponibles"))*/
+        /*ofertasList.add(prod(R.drawable.ejemplo_producto,"PC DE VEGETTA777 Y WILLYREX Y RUBIUSOMG", "$2000", "30 disponibles"))
+        ofertasList.add(prod(R.drawable.ejemplo_procesadorintel,"INTEL PROCESADOR CORE I9-12900KF, S-1700, 5.20GHZ, 8-CORE", "$2000", "30 disponibles"))
+        ofertasList.add(prod(R.drawable.ejemplo_procesodorintel2,"PROCESADOR INTEL CORE I9", "$2000", "30 disponibles"))
+        ofertasList.add(prod(R.drawable.ejemplo_procesadorryzen,"PROCESADOR AMD RYZEN 3", "$2000", "30 disponibles"))
+        ofertasList.add(prod(R.drawable.ejemplo_procesadorryzen2,"PROCESADOR AMD RYZEN", "$2000", "30 disponibles"))
+        ofertasList.add(prod(R.drawable.ejemplo_producto,"Gabinete1", "$2000", "30 disponibles"))
+        ofertasList.add(prod(R.drawable.ejemplo_producto,"Gabinete2", "$2000", "30 disponibles"))
+        ofertasList.add(prod(R.drawable.ejemplo_producto,"Gabinete3", "$2000", "30 disponibles"))*/
 
     }
 
@@ -194,10 +202,11 @@ class ProductoAdapter : BaseAdapter {
         var precio: TextView = vista.findViewById(R.id.tv_precioDescuento)
         var stock: TextView = vista.findViewById(R.id.tv_stock)
 
-        //imagen.set
-        //nombre.setText(producto.nombre)
-        //precio.setText(producto.precio)
-        //stock.setText(producto.stock)
+        Glide.with(contexto!!).load(producto.imagen).into(imagen)
+
+        nombre.setText(producto.nombre)
+        precio.setText(producto.precio.toString())
+        stock.setText(producto.stock.toString() )
 
         vista.setOnClickListener{
             var intent = Intent(contexto, Detalles::class.java)

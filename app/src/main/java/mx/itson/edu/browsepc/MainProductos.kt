@@ -20,17 +20,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 
 class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private val db = FirebaseFirestore.getInstance();
-    private val productos = db.collection("productos");
-
-    private val storage = FirebaseStorage.getInstance()
-    private val imagesRef = storage.getReference().child("gs://browsepc.appspot.com")
+    var listView: ListView = findViewById(R.id.listView)
 
     lateinit var toggle: ActionBarDrawerToggle
     var adapterOfertas: ProductoAdapter? = null
@@ -53,16 +52,6 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView.setNavigationItemSelectedListener(this)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
-
-//        val toolbar: Toolbar = findViewById(R.id.toolbar)
-
-//        setSupportActionBar(toolbar)
-//
-//        val toggle: ActionBarDrawerToggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.app_name, R.string.app_name);
-//        drawerLayout.addDrawerListener(toggle);
-//        toggle.syncState();
 
         bottomNavigationView.selectedItemId = R.id.home
 
@@ -92,7 +81,7 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         adapterOfertas = ProductoAdapter(this,ofertasList)
         //adapterPerifericos = ProductoAdapter(this, perifericosList)
-        var listView: ListView = findViewById(R.id.listView)
+
 
         cargarProductos()
 
@@ -110,30 +99,19 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun cargarProductos(){
-        productos.get().addOnSuccessListener { querySnapshot ->
-            for(document in querySnapshot){
+        val db = Firebase.firestore
+        val collectionProductos = db.collection("productos")
+
+        collectionProductos.get().addOnSuccessListener { documents ->
+            val productos = mutableListOf<prod>()
+            for(document in documents){
                 val producto = document.toObject(prod::class.java)
-                ofertasList.add(producto)
+                productos.add(producto)
+
+                val storageRef = Firebase.storage.reference.child(producto.imagen)
+
             }
         }
-
-       /* imagesRef.listAll().addOnSuccessListener { listResult ->
-            listResult.items.forEachIndexed{index, item ->
-                val localFile = File.createTempFile("images","jgp")
-                item.getFile(localFile).addOnSuccessListener{
-                    try {
-                        val bitmap = BitmapFactory.decodeFile(localFile.path)
-                        val outputStream = ByteArrayOutputStream()
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-                        val imageBytes = outputStream.toByteArray()
-                        val base64String = Base64.encodeToString(imageBytes, Base64.DEFAULT)
-                        ofertasList[index].imagen = base64String
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
-                }
-            }
-        }*/
 
         /*ofertasList.add(Producto(R.drawable.ejemplo_producto,"PC DE VEGETTA777 Y WILLYREX Y RUBIUSOMG", "$2000", "30 disponibles"))
         ofertasList.add(Producto(R.drawable.ejemplo_procesadorintel,"INTEL PROCESADOR CORE I9-12900KF, S-1700, 5.20GHZ, 8-CORE", "$2000", "30 disponibles"))

@@ -16,8 +16,7 @@ import com.google.firebase.firestore.auth.User
 import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
-    private val db = FirebaseFirestore.getInstance()
-    private val collection = db.collection("usuarios")
+    private val collection = DbSingleton.getDb().collection("usuarios")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -104,8 +104,7 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun cargarProductos(){
-        val db = Firebase.firestore
-        val collectionProductos = db.collection("productos")
+        val collectionProductos = DbSingleton.getDb().collection("productos")
 
         val productos = ArrayList<prod>()
         collectionProductos.get().addOnSuccessListener { documents ->

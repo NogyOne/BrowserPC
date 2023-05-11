@@ -23,8 +23,7 @@ import com.google.firebase.ktx.Firebase
 
 class Detalles : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var toggle: ActionBarDrawerToggle
-    private val db = Firebase.firestore
-    private val collectionFavoritos = db.collection("favoritos")
+    private val collectionFavoritos = DbSingleton.getDb().collection("favoritos")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

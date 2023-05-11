@@ -10,8 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import org.w3c.dom.Text
 
 class RecuperarContrasena : AppCompatActivity() {
-    private val db = FirebaseFirestore.getInstance()
-    private val collection = db.collection("usuarios")
+    private val collection = DbSingleton.getDb().collection("usuarios")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

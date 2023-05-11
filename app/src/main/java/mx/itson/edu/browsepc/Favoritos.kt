@@ -93,8 +93,7 @@ class Favoritos : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
     }
 
     fun cargarProductos(){
-        val db = Firebase.firestore
-        val collectionFavoritos = db.collection("favoritos")
+        val collectionFavoritos = DbSingleton.getDb().collection("favoritos")
 
         val query = collectionFavoritos.whereEqualTo("id_usuario", UserSingleton.getUsuario().id)
 
@@ -212,22 +211,7 @@ class FavoritosAdapter : BaseAdapter {
         }
 
         btnDelete.setOnClickListener{
-            /*val db = Firebase.firestore
-            val collectionFavoritos = db.collection("favoritos").document(UserSingleton.getUsuario().id)
-            println("Cuando por las noches")
-            collectionFavoritos.update("productos", FieldValue.arrayRemove(producto.nombre))
-                .addOnSuccessListener {
-                    Log.d(ContentValues.TAG, "Producto eliminado: ${producto.nombre}")
-                    //Toast.makeText(baseContext, "Producto eliminado de productos", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener{e->
-                    Log.w(ContentValues.TAG, "Error al eliminar producto de favoritos: $e")
-                    println(producto.nombre)
-                    //Toast.makeText(baseContext, "Error al eliminar producto, intenta de nuevo", Toast.LENGTH_SHORT).show()
-                }*/
-
-            val db = Firebase.firestore
-            val collectionFavoritos = db.collection("favoritos")
+            val collectionFavoritos = DbSingleton.getDb().collection("favoritos")
             val query = collectionFavoritos.whereEqualTo("id_usuario", UserSingleton.getUsuario().id)
 
             query.get().addOnSuccessListener { documents ->

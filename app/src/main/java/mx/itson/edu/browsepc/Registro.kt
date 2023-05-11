@@ -12,11 +12,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import org.w3c.dom.Text
 
 class Registro : AppCompatActivity() {
-    private val db = FirebaseFirestore.getInstance()
-    private val collectionUsers = db.collection("usuarios")
-    private val collectionFavs = db.collection("favoritos")
-    private val collectionCart = db.collection("carrito")
-    private val collectionCartProd = db.collection("carrito_productos")
+    private val collectionUsers = DbSingleton.getDb().collection("usuarios")
+    private val collectionFavs = DbSingleton.getDb().collection("favoritos")
+    private val collectionCart = DbSingleton.getDb().collection("carrito")
+    private val collectionCartProd = DbSingleton.getDb().collection("carrito_productos")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

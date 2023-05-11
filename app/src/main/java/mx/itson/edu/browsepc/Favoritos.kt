@@ -1,23 +1,43 @@
 package mx.itson.edu.browsepc
 
+import android.annotation.SuppressLint
+import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.MenuItem
-import android.widget.Button
+import android.view.View
+import android.view.ViewGroup
+import android.widget.*
+import com.bumptech.glide.Glide
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.auth.User
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
 class Favoritos : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    lateinit var listView: ListView
+
+    var favoritosList = ArrayList<prod>()
+    var favsAdapter: FavoritosAdapter? = null
+
     lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favoritos)
+
+        listView = findViewById(R.id.listView)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         val fab: FloatingActionButton = findViewById(R.id.fab)
@@ -67,6 +87,40 @@ class Favoritos : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
             var intent: Intent = Intent(this, Carrito::class.java)
             startActivity(intent)
         }
+
+        favsAdapter = FavoritosAdapter(this, favoritosList)
+        cargarProductos()
+    }
+
+    fun cargarProductos(){
+        val db = Firebase.firestore
+        val collectionFavoritos = db.collection("favoritos")
+
+        val query = collectionFavoritos.whereEqualTo("id_usuario", UserSingleton.getUsuario().id)
+
+        query.get().addOnSuccessListener { documents ->
+
+            for(document in documents){
+                val docFav = document.getData()
+                println(docFav.get("productos"))
+                val productosFav = docFav.get("productos") as ArrayList<HashMap<String, Any>> // obtenemos la lista de productos favoritos como ArrayList<HashMap<String, Any>>
+                for(producto in productosFav){
+                    val id = producto.get("id") as String
+                    val imagen = producto.get("imagen") as String
+                    val nombre = producto.get("nombre") as String
+                    val precio = producto.get("precio").toString().toFloat()
+                    val descuento = producto.get("descuento").toString().toInt()
+                    val stock = producto.get("stock").toString().toInt()
+                    val prod = prod(id, imagen, nombre, precio, descuento, stock)
+                    favoritosList.add(prod)
+                }
+            }
+
+            println(favoritosList)
+            listView.adapter = favsAdapter
+        }.addOnFailureListener{e ->
+            Log.w(ContentValues.TAG, "Error al obtener los documentos", e)
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -104,5 +158,98 @@ class Favoritos : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
             true
         }
         return super.onOptionsItemSelected(item)
+    }
+}
+
+class FavoritosAdapter : BaseAdapter {
+    var productos = ArrayList<prod>()
+    var contexto: Context? = null
+
+    constructor(context: Context, productos: ArrayList<prod>) {
+        this.productos = productos
+        this.contexto = context
+    }
+
+    override fun getCount(): Int {
+        return productos.size
+    }
+
+    override fun getItem(p0: Int): Any {
+        return productos[p0]
+    }
+
+    override fun getItemId(p0: Int): Long {
+        return p0.toLong()
+    }
+
+    @SuppressLint("ViewHolder")
+    override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
+        var producto = productos[p0]
+        var inflador = contexto!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        var vista = inflador.inflate(R.layout.activity_productos_agregados, null)
+
+        var imagen: ImageView = vista.findViewById(R.id.iv_foto)
+        var nombre: TextView = vista.findViewById(R.id.tv_nombre)
+        var precio: TextView = vista.findViewById(R.id.tv_precioDescuento)
+        var stock: TextView = vista.findViewById(R.id.tv_stock)
+        val btnDelete: Button = vista.findViewById(R.id.btnDelete)
+
+        Glide.with(contexto!!).load(producto.imagen).into(imagen)
+
+        nombre.setText(producto.nombre)
+        precio.setText(producto.precio.toString())
+        stock.setText(producto.stock.toString() )
+
+        vista.setOnClickListener{
+            var intent = Intent(contexto, Detalles::class.java)
+            intent.putExtra("id", producto.id)
+            intent.putExtra("nombre", producto.nombre)
+            intent.putExtra("image", producto.imagen)
+            intent.putExtra("precio", producto.precio)
+            intent.putExtra("stock", producto.stock)
+            intent.putExtra("descuento", producto.descuento)
+            contexto!!.startActivity(intent)
+        }
+
+        btnDelete.setOnClickListener{
+            /*val db = Firebase.firestore
+            val collectionFavoritos = db.collection("favoritos").document(UserSingleton.getUsuario().id)
+            println("Cuando por las noches")
+            collectionFavoritos.update("productos", FieldValue.arrayRemove(producto.nombre))
+                .addOnSuccessListener {
+                    Log.d(ContentValues.TAG, "Producto eliminado: ${producto.nombre}")
+                    //Toast.makeText(baseContext, "Producto eliminado de productos", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener{e->
+                    Log.w(ContentValues.TAG, "Error al eliminar producto de favoritos: $e")
+                    println(producto.nombre)
+                    //Toast.makeText(baseContext, "Error al eliminar producto, intenta de nuevo", Toast.LENGTH_SHORT).show()
+                }*/
+
+            val db = Firebase.firestore
+            val collectionFavoritos = db.collection("favoritos")
+            val query = collectionFavoritos.whereEqualTo("id_usuario", UserSingleton.getUsuario().id)
+
+            query.get().addOnSuccessListener { documents ->
+                for(document in documents){
+                    val docFav = document.data
+                    val productos = docFav["productos"] as ArrayList<HashMap<String, Any>>
+                    for(prod in productos){
+                        if(prod["nombre"] == producto.nombre){
+                            productos.remove(prod)
+                            break
+                        }
+                    }
+                    document.reference.set(docFav)
+                }
+                Log.d(ContentValues.TAG, "Se eliminó")
+            }
+                .addOnFailureListener{ e->
+                    Log.w(ContentValues.TAG, "Error al obtener los documentos", e)
+                }
+        }
+
+
+        return vista
     }
 }

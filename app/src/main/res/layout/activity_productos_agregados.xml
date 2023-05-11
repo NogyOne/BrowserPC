@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="10dp"
-    android:background="@drawable/bg_carrito">
-
+    android:background="@drawable/bg_carrito"
+    tools:context=".productos_agregados">
     <ImageView
         android:id="@+id/iv_foto"
         android:layout_width="130dp"
@@ -78,11 +80,11 @@
                 android:textSize="12dp" />
 
             <Button
+                android:id="@+id/btnDelete"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="30dp"
-                android:background="@drawable/delete_vector"
-                />
+                android:background="@drawable/delete_vector"/>
         </LinearLayout>
 
         <LinearLayout
@@ -107,5 +109,5 @@
                 android:textStyle="bold"
                 android:textSize="12dp" />
         </LinearLayout>
-    </LinearLayout>
+</LinearLayout>
 </LinearLayout>

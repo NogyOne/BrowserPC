@@ -12,6 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.auth.User
 import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         val userName: TextView = findViewById(R.id.txtUsername)
         val password: TextView = findViewById(R.id.txtContrasena)
 
+
         login.setOnClickListener{
             when{
                 userName.text.isEmpty() || password.text.isEmpty()->{
@@ -42,6 +44,10 @@ class MainActivity : AppCompatActivity() {
 
                             if(password.text.toString() == storePass.toString()){
                                 Log.d(ContentValues.TAG, "Usuario logueado con ID: ${document.documents.get(0).id}")
+                                val user = Usuario(document.documents.get(0).id,userName.text.toString(), userData!!["email"] as String, userData!!["password"] as String, userData!!["celular"] as String)
+
+                                UserSingleton.setUsuario(user)
+
                                 var intent: Intent = Intent(this, Bienvenida::class.java)
                                 intent.putExtra("username", userName.text.toString())
                                 startActivity(intent)

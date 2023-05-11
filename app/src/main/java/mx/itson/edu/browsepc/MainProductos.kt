@@ -36,7 +36,6 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     lateinit var toggle: ActionBarDrawerToggle
     var adapterOfertas: ProductoAdapter? = null
-    var adapterPerifericos: ProductoAdapter? = null
     var ofertasList = ArrayList<prod>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -116,6 +115,7 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 ofertasList.add(producto)
                 //val storageRef = Firebase.storage.reference.child(producto.imagen)
             }
+            println(ofertasList)
             listView.adapter = adapterOfertas
         }.addOnFailureListener{e ->
             Log.w(TAG, "Error al obtener los documentos", e)
@@ -210,10 +210,12 @@ class ProductoAdapter : BaseAdapter {
 
         vista.setOnClickListener{
             var intent = Intent(contexto, Detalles::class.java)
+            intent.putExtra("id", producto.id)
             intent.putExtra("nombre", producto.nombre)
             intent.putExtra("image", producto.imagen)
             intent.putExtra("precio", producto.precio)
             intent.putExtra("stock", producto.stock)
+            intent.putExtra("descuento", producto.descuento)
             contexto!!.startActivity(intent)
         }
 

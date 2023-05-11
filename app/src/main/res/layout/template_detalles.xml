@@ -98,6 +98,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/btnFavoritos"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:textSize="14dp"
@@ -107,6 +108,7 @@
                 android:text="@string/btn_favoritos"/>
 
             <Button
+                android:id="@+id/btnCarrito"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:textSize="14dp"

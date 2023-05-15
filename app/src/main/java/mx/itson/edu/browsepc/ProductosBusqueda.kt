@@ -86,11 +86,16 @@ class ProductosBusqueda : AppCompatActivity(), NavigationView.OnNavigationItemSe
             startActivity(intent)*/
         }
 
+        var p = bundle?.getString("parametro").toString();
+
         adaptador = AdaptadorProductos(this, productos)
-        buscarProductos(bundle?.getString("parametro").toString())
+        buscarProductos(p)
+
+        if(p.isNotEmpty()){
+            param.setText(p)
+        }
 
         listView.adapter = adaptador
-
     }
     fun buscarProductos(parametro: String){
         println("parametro: " + parametro)
@@ -115,9 +120,8 @@ class ProductosBusqueda : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
             if (productos.isEmpty()){
                 val alertDialog = AlertDialog.Builder(this)
-
                     .setTitle("No se encontraron productos")
-                    .setMessage("No se encontraron productos con el criterio de búsqueda especificado.")
+                    .setMessage("No se encontraron productos con el criterio de búsqueda especificado. ("+parametro+")")
                     .setPositiveButton("Aceptar", null)
                     .create()
                 alertDialog.show()

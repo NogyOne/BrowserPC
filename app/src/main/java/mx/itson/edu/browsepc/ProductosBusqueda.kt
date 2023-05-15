@@ -1,9 +1,11 @@
 package mx.itson.edu.browsepc
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -12,17 +14,22 @@ import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 
 class ProductosBusqueda : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var toggle: ActionBarDrawerToggle
-    var productos: ArrayList<Producto> = ArrayList<Producto>()
+    lateinit var listView: ListView
+    var productos = ArrayList<prod>()
+    var adaptador: AdaptadorProductos? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_productos)
+
+        listView = findViewById(R.id.listView)
 
         val buscar: Button = findViewById(R.id.btnBuscar)
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
@@ -70,24 +77,29 @@ class ProductosBusqueda : AppCompatActivity(), NavigationView.OnNavigationItemSe
             startActivity(intent)
         }
 
+        adaptador = AdaptadorProductos(this, productos)
         agregarProductos()
 
-        var listView: ListView = findViewById(R.id.listView)
-
-        var adaptador: AdaptadorProductos = AdaptadorProductos(this, productos)
         listView.adapter = adaptador
 
     }
 
     fun agregarProductos(){
-        productos.add(Producto(R.drawable.ejemplo_procesadorintel, "INTEL PROCESADOR CORE I3-12900KF, S-1700, 5.20GHZ, 8-CORE", "$35000", "30 DISPONIBLES"))
-        productos.add(Producto(R.drawable.ejemplo_producto, "PCERDA", "$4000", "320 DISPONIBLES"))
-        productos.add(Producto(R.drawable.ejemplo_procesodorintel2, "Procesador Intel", "$6000", "10 DISPONIBLES"))
-        productos.add(Producto(R.drawable.ejemplo_producto, "LA PODEROSA", "$10000", "20 DISPONIBLES"))
-        productos.add(Producto(R.drawable.ejemplo_procesadorryzen, "LA PODEROSA", "$10000", "20 DISPONIBLES"))
-        productos.add(Producto(R.drawable.ejemplo_procesadorryzen2, "LA PODEROSA", "$10000", "20 DISPONIBLES"))
-        productos.add(Producto(R.drawable.ejemplo_producto, "LA PODEROSA", "$10000", "20 DISPONIBLES"))
-        productos.add(Producto(R.drawable.ejemplo_producto, "LA PODEROSA", "$10000", "20 DISPONIBLES"))
+        val collectionProductos = DbSingleton.getDb().collection("productos")
+
+        collectionProductos.get().addOnSuccessListener { documents ->
+            println("entro al addOnSuccessListener ")
+            for(document in documents){
+                val producto = document.toObject(prod::class.java)
+                producto.id = document.id
+
+                productos.add(producto)
+            }
+            println(productos)
+            listView.adapter = adaptador
+        }.addOnFailureListener{e ->
+            Log.w(ContentValues.TAG, "Error al obtener los documentos", e)
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -127,12 +139,11 @@ class ProductosBusqueda : AppCompatActivity(), NavigationView.OnNavigationItemSe
         return super.onOptionsItemSelected(item)
     }
 }
-
-private class AdaptadorProductos: BaseAdapter{
-    var productos = ArrayList<Producto>()
+class AdaptadorProductos: BaseAdapter{
+    var productos = ArrayList<prod>()
     var contexto: Context? = null
 
-    constructor(contexto: Context, producto: ArrayList<Producto>) {
+    constructor(contexto: Context, producto: ArrayList<prod>) {
         this.productos = producto
         this.contexto = contexto
     }
@@ -159,10 +170,11 @@ private class AdaptadorProductos: BaseAdapter{
         var precio: TextView = vista.findViewById(R.id.tv_precioDescuento)
         var stock: TextView = vista.findViewById(R.id.tv_stock)
 
-        imagen.setImageResource(producto.imagen)
+        Glide.with(contexto!!).load(producto.imagen).into(imagen)
+
         nombre.setText(producto.nombre)
-        precio.setText(producto.precio)
-        stock.setText(producto.stock)
+        precio.setText(producto.precio.toString())
+        stock.setText(producto.stock.toString() )
 
         vista.setOnClickListener{
             var intent = Intent(contexto, Detalles::class.java)

@@ -106,7 +106,7 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun cargarProductos(){
         val collectionProductos = DbSingleton.getDb().collection("productos")
 
-        val productos = ArrayList<prod>()
+
         collectionProductos.get().addOnSuccessListener { documents ->
             println("entro al addOnSuccessListener ")
             for(document in documents){

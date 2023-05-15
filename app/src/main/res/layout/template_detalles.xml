@@ -43,9 +43,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/azul_hex"
+                android:layout_marginLeft="10dp"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:text="777 DISPONIBLES"/>
+                android:text="777"/>
+            <TextView
+                android:id="@+id/tv_disponibles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/azul_hex"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text=" DISPONIBLES"/>
             <TextView
                 android:id="@+id/tv_precio"
                 android:layout_width="wrap_content"
@@ -70,24 +79,26 @@
                 android:id="@+id/tv_nombre"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="80dp"
+                android:layout_marginRight="150dp"
                 android:text="INTEL PROCESADOR CORE I9-12900KF, S-1700, 5.20GHZ, 8-CORE"
                 android:textColor="@color/gris_hint"
                 android:layout_gravity="center"
                 android:textSize="12dp"
                 android:textStyle="bold" />
 
-            <EditText
+           <!-- <EditText
                 android:id="@+id/txtCantidad"
                 android:layout_width="77dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:background="@drawable/bg_cantidad"
                 android:hint="Cantidad"
+                android:text="1"
+                android:inputType="number"
                 android:textAlignment="center"
                 android:textColorHint="@color/gris_hint"
                 android:textColor="@color/gris_hint"
-                android:textSize="12dp" />
+                android:textSize="12dp" />-->
 
         </LinearLayout>
 

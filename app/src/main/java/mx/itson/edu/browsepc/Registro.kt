@@ -62,6 +62,7 @@ class Registro : AppCompatActivity() {
     fun registro(user: Usuario): Boolean {
         var result: Boolean = true
         collectionUsers.add(user).addOnSuccessListener { userReference ->
+            UserSingleton.setUsuario(user)
             Log.d(TAG, "Usuario agregado con ID: ${userReference.id}")
 
             val carrito = CarritoDom(userReference.id)
@@ -70,14 +71,14 @@ class Registro : AppCompatActivity() {
             collectionCart.add(carrito).addOnSuccessListener { cartReference ->
                 Log.d(TAG, "Carrito creado y agregado con ID: ${cartReference.id}")
 
-                val carritoProds = Carrito_Productos(cartReference.id)
+                /*val carritoProds = Carrito_Productos(cartReference.id)
                 collectionCartProd.add(carritoProds).addOnSuccessListener { cartProdsReference ->
                     Log.d(TAG, "CarritoProductos creado y agregado con ID: ${cartProdsReference.id} ${carritoProds.id_carrito}")
                 }
                     .addOnFailureListener{ e ->
                         Log.w(TAG, "Error al registrar CarritoProductos", e)
                         result = false
-                    }
+                    }*/
             }
                 .addOnFailureListener{ e ->
                     Log.w(TAG, "Error al registrar carrito", e)

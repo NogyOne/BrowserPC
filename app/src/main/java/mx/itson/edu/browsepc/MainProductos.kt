@@ -111,24 +111,15 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             println("entro al addOnSuccessListener ")
             for(document in documents){
                 val producto = document.toObject(prod::class.java)
+                producto.id = document.id
+
                 ofertasList.add(producto)
-                //val storageRef = Firebase.storage.reference.child(producto.imagen)
             }
             println(ofertasList)
             listView.adapter = adapterOfertas
         }.addOnFailureListener{e ->
             Log.w(TAG, "Error al obtener los documentos", e)
         }
-
-        /*ofertasList.add(prod(R.drawable.ejemplo_producto,"PC DE VEGETTA777 Y WILLYREX Y RUBIUSOMG", "$2000", "30 disponibles"))
-        ofertasList.add(prod(R.drawable.ejemplo_procesadorintel,"INTEL PROCESADOR CORE I9-12900KF, S-1700, 5.20GHZ, 8-CORE", "$2000", "30 disponibles"))
-        ofertasList.add(prod(R.drawable.ejemplo_procesodorintel2,"PROCESADOR INTEL CORE I9", "$2000", "30 disponibles"))
-        ofertasList.add(prod(R.drawable.ejemplo_procesadorryzen,"PROCESADOR AMD RYZEN 3", "$2000", "30 disponibles"))
-        ofertasList.add(prod(R.drawable.ejemplo_procesadorryzen2,"PROCESADOR AMD RYZEN", "$2000", "30 disponibles"))
-        ofertasList.add(prod(R.drawable.ejemplo_producto,"Gabinete1", "$2000", "30 disponibles"))
-        ofertasList.add(prod(R.drawable.ejemplo_producto,"Gabinete2", "$2000", "30 disponibles"))
-        ofertasList.add(prod(R.drawable.ejemplo_producto,"Gabinete3", "$2000", "30 disponibles"))*/
-
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

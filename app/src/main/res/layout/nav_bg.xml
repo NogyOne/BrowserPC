@@ -11,16 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/logo"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@color/naranja"
-        android:textStyle="bold"
-        android:textSize="18dp"
-        android:text="USERNAME"
-        android:layout_marginTop="10dp"/>
 
 </LinearLayout>

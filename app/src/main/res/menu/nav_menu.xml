@@ -13,10 +13,7 @@
             android:id="@+id/nav_attention"
             android:icon="@drawable/client_vector"
             android:title="Atención al cliente"/>
-        <item
-            android:id="@+id/nav_config"
-            android:icon="@drawable/config_vector"
-            android:title="Configuración"/>
+
         <item
             android:id="@+id/nav_report"
             android:icon="@drawable/report_vector"

@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:text="20% OFF"
             android:textSize="16dp"
-            android:layout_marginRight="70dp"
+            android:layout_marginRight="60dp"
             android:layout_marginLeft="70dp"
             android:textStyle="bold"
             android:textColor="@color/gris_hint" />
@@ -84,9 +84,18 @@
             android:id="@+id/tv_stock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="30 DISPONIBLES"
+            android:text="30"
             android:textSize="16dp"
-            android:layout_marginLeft="70dp"
+            android:layout_marginLeft="60dp"
+            android:textColor="@color/azul_hex"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_disponibles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" DISPONIBLES"
+            android:textSize="16dp"
             android:textColor="@color/azul_hex"
             android:textStyle="bold" />
 

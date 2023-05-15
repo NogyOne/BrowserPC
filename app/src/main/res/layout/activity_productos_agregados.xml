@@ -6,8 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="10dp"
-    android:background="@drawable/bg_carrito"
-    tools:context=".productos_agregados">
+    android:background="@drawable/bg_carrito">
     <ImageView
         android:id="@+id/iv_foto"
         android:layout_width="130dp"
@@ -99,15 +98,6 @@
                 android:textColor="@color/gris_hint"
                 android:textSize="18dp" />
 
-            <TextView
-                android:id="@+id/tv_stock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="STOCK"
-                android:layout_marginLeft="40dp"
-                android:textColor="@color/azul_hex"
-                android:textStyle="bold"
-                android:textSize="12dp" />
         </LinearLayout>
 </LinearLayout>
 </LinearLayout>

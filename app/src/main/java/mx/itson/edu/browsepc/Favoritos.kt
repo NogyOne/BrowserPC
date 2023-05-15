@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.bumptech.glide.Glide
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -190,14 +191,14 @@ class FavoritosAdapter : BaseAdapter {
         var imagen: ImageView = vista.findViewById(R.id.iv_foto)
         var nombre: TextView = vista.findViewById(R.id.tv_nombre)
         var precio: TextView = vista.findViewById(R.id.tv_precioDescuento)
-        var stock: TextView = vista.findViewById(R.id.tv_stock)
+        //var stock: TextView = vista.findViewById(R.id.tv_stock)
         val btnDelete: Button = vista.findViewById(R.id.btnDelete)
 
         Glide.with(contexto!!).load(producto.imagen).into(imagen)
 
         nombre.setText(producto.nombre)
         precio.setText(producto.precio.toString())
-        stock.setText(producto.stock.toString() )
+        //stock.setText(producto.stock.toString() )
 
         vista.setOnClickListener{
             var intent = Intent(contexto, Detalles::class.java)
@@ -226,9 +227,11 @@ class FavoritosAdapter : BaseAdapter {
                     }
                     document.reference.set(docFav)
                 }
+                Toast.makeText(contexto, "Se ha eliminado el producto de favoritos", Toast.LENGTH_SHORT).show()
                 Log.d(ContentValues.TAG, "Se eliminó")
             }
                 .addOnFailureListener{ e->
+                    Toast.makeText(contexto, "Error al eliminar el producto de favoritos", Toast.LENGTH_SHORT).show()
                     Log.w(ContentValues.TAG, "Error al obtener los documentos", e)
                 }
         }

@@ -82,6 +82,7 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         val buscar: Button = findViewById(R.id.btnBuscar)
+        val param: EditText = findViewById(R.id.txtBusqueda)
 
         adapterOfertas = ProductoAdapter(this,ofertasList)
         //adapterPerifericos = ProductoAdapter(this, perifericosList)
@@ -99,14 +100,13 @@ class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         buscar.setOnClickListener{
             var intent: Intent = Intent(this, ProductosBusqueda::class.java)
+            intent.putExtra("parametro", param.text.toString())
             startActivity(intent)
         }
     }
 
     fun cargarProductos(){
         val collectionProductos = DbSingleton.getDb().collection("productos")
-
-
         collectionProductos.get().addOnSuccessListener { documents ->
             println("entro al addOnSuccessListener ")
             for(document in documents){

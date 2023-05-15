@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
@@ -32,6 +33,8 @@ class ProductosBusqueda : AppCompatActivity(), NavigationView.OnNavigationItemSe
         listView = findViewById(R.id.listView)
 
         val buscar: Button = findViewById(R.id.btnBuscar)
+        val param: EditText = findViewById(R.id.txtBusqueda)
+
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         val fab: FloatingActionButton = findViewById(R.id.fab)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -72,32 +75,56 @@ class ProductosBusqueda : AppCompatActivity(), NavigationView.OnNavigationItemSe
             startActivity(intent)
         }
 
+        val bundle = intent.extras
+
         buscar.setOnClickListener{
-            var intent: Intent = Intent(this, ProductosBusqueda::class.java)
-            startActivity(intent)
+            productos.clear()
+            if(param.text.toString()!=null){
+                buscarProductos(param.text.toString())
+            }
+            /*var intent: Intent = Intent(this, ProductosBusqueda::class.java)
+            startActivity(intent)*/
         }
 
         adaptador = AdaptadorProductos(this, productos)
-        agregarProductos()
+        buscarProductos(bundle?.getString("parametro").toString())
 
         listView.adapter = adaptador
 
     }
+    fun buscarProductos(parametro: String){
+        println("parametro: " + parametro)
 
-    fun agregarProductos(){
         val collectionProductos = DbSingleton.getDb().collection("productos")
+        val query = collectionProductos
 
-        collectionProductos.get().addOnSuccessListener { documents ->
-            println("entro al addOnSuccessListener ")
-            for(document in documents){
+        query.get().addOnSuccessListener { documents ->
+            println("entro a búsqueda por parámetro")
+            for (document in documents) {
                 val producto = document.toObject(prod::class.java)
                 producto.id = document.id
 
-                productos.add(producto)
+                val nombreProducto = producto.nombre?.toLowerCase()
+                if (parametro.isNotEmpty() && nombreProducto != null && nombreProducto.contains(parametro.toLowerCase())) {
+                    productos.add(producto)
+                }else if(parametro.isEmpty()){
+                    productos.add(producto)
+                }
             }
             println(productos)
+
+            if (productos.isEmpty()){
+                val alertDialog = AlertDialog.Builder(this)
+
+                    .setTitle("No se encontraron productos")
+                    .setMessage("No se encontraron productos con el criterio de búsqueda especificado.")
+                    .setPositiveButton("Aceptar", null)
+                    .create()
+                alertDialog.show()
+            }
+
             listView.adapter = adaptador
-        }.addOnFailureListener{e ->
+        }.addOnFailureListener { e ->
             Log.w(ContentValues.TAG, "Error al obtener los documentos", e)
         }
     }

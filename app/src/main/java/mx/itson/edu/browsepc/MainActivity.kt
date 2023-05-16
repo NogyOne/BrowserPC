@@ -20,8 +20,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var mGoogleSignInClient: GoogleSignInClient
     val RC_SIGN_IN = 343
     val LOG_OUT = 234
-    var email: String = ""
-    var nombre: String = ""
     private val collection = DbSingleton.getDb().collection("usuarios")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,21 +41,7 @@ class MainActivity : AppCompatActivity() {
         btnGmail.setOnClickListener {
             val sigInIntent = mGoogleSignInClient.signInIntent
             startActivityForResult(sigInIntent, RC_SIGN_IN)
-            /*Comparar si existe un usuario con el correo de la cuenta de gmail, sino existe se crea un usuario y setear en singleton*/
-            val queryUser = collection.whereEqualTo("email", email)
 
-            queryUser.get().addOnSuccessListener { documents ->
-                if(documents.size() == 1){
-                    val data = documents.documents.get(0).data
-                    val user = Usuario(documents.documents.get(0).id,data!!["username"] as String, data!!["email"] as String)
-                    UserSingleton.setUsuario(user)
-                } else {
-
-                    var user = Usuario(nombre, email)
-                    registro(user)
-                    UserSingleton.setUsuario(user)
-                }
-            }
         }
 
 
@@ -110,7 +94,6 @@ class MainActivity : AppCompatActivity() {
         val collectionCart = DbSingleton.getDb().collection("carrito")
         val collectionCartProd = DbSingleton.getDb().collection("carrito_productos")
         collection.add(user).addOnSuccessListener { userReference ->
-            UserSingleton.setUsuario(user)
             Log.d(ContentValues.TAG, "Usuario agregado con ID: ${userReference.id}")
 
             val carrito = CarritoDom(userReference.id)
@@ -168,6 +151,23 @@ class MainActivity : AppCompatActivity() {
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>){
         try {
             val account = completedTask.getResult(ApiException::class.java)
+            val queryUser = collection.whereEqualTo("email", account.email.toString())
+
+            queryUser.get().addOnSuccessListener { documents ->
+                if(documents.size() == 1){
+                    val data = documents.documents.get(0).data
+                    val user = Usuario(documents.documents.get(0).id,data!!["username"] as String, data!!["email"] as String)
+                    UserSingleton.setUsuario(user)
+                } else {
+                    var user = Usuario(account.displayName.toString(), account.email.toString())
+                    registro(user)
+                    val query = collection.whereEqualTo("email", account.email.toString())
+                    query.get().addOnSuccessListener { documents ->
+                        user.id = documents.documents.get(0).id
+                    }
+                    UserSingleton.setUsuario(user)
+                }
+            }
             updateUI(account)
         } catch (e: ApiException){
             Log.w("test_signin", "signInResult:failed code=" + e.statusCode)
@@ -181,8 +181,6 @@ class MainActivity : AppCompatActivity() {
             //intent.putExtra("id", acct.getId())
             intent.putExtra("name", acct.getDisplayName())
             intent.putExtra("email", acct.getEmail())
-            email= acct.email.toString()
-            nombre = acct.displayName.toString()
             startActivityForResult(intent, LOG_OUT)
 
         }

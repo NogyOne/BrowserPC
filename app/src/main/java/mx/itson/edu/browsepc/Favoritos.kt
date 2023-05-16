@@ -18,6 +18,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.recreate
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -29,7 +33,7 @@ import com.google.firebase.ktx.Firebase
 
 class Favoritos : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var listView: ListView
-
+    lateinit var mGoogleSignInClient: GoogleSignInClient
     var favoritosList = ArrayList<prod>()
     var favsAdapter: FavoritosAdapter? = null
 
@@ -40,7 +44,10 @@ class Favoritos : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         setContentView(R.layout.activity_favoritos)
 
         listView = findViewById(R.id.listView)
-
+        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         val fab: FloatingActionButton = findViewById(R.id.fab)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -127,10 +134,13 @@ class Favoritos : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         favoritosList.clear() // Limpia la lista actual de favoritos
         cargarProductos() // Vuelve a cargar los productos favoritos desde la base de datos
     }
-
+    private fun signOut(){
+        mGoogleSignInClient.signOut().addOnCompleteListener(this, OnCompleteListener<Void?> {Toast.makeText(this,"sesion terminada", Toast.LENGTH_SHORT).show()} )
+    }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.nav_logout ->{
+                signOut()
                 startActivity(Intent(applicationContext, MainActivity::class.java))
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                 finish()

@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 
-class Bienvenida : AppCompatActivity() {
+class  Bienvenida : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bienvenida)
@@ -16,7 +16,7 @@ class Bienvenida : AppCompatActivity() {
         val bundle = intent.extras
 
         if(bundle != null){
-            username.setText(bundle.getString("username"))
+            username.setText(bundle.getString("name"))
         }
 
         empezar.setOnClickListener{

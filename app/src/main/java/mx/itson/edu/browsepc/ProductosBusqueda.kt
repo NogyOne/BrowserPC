@@ -16,6 +16,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -23,6 +27,7 @@ import com.google.android.material.navigation.NavigationView
 class ProductosBusqueda : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var toggle: ActionBarDrawerToggle
     lateinit var listView: ListView
+    lateinit var mGoogleSignInClient: GoogleSignInClient
     var productos = ArrayList<prod>()
     var adaptador: AdaptadorProductos? = null
 
@@ -31,7 +36,10 @@ class ProductosBusqueda : AppCompatActivity(), NavigationView.OnNavigationItemSe
         setContentView(R.layout.activity_productos)
 
         listView = findViewById(R.id.listView)
-
+        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         val buscar: Button = findViewById(R.id.btnBuscar)
         val param: EditText = findViewById(R.id.txtBusqueda)
 
@@ -132,10 +140,13 @@ class ProductosBusqueda : AppCompatActivity(), NavigationView.OnNavigationItemSe
             Log.w(ContentValues.TAG, "Error al obtener los documentos", e)
         }
     }
-
+    private fun signOut(){
+        mGoogleSignInClient.signOut().addOnCompleteListener(this, OnCompleteListener<Void?> {Toast.makeText(this,"sesion terminada", Toast.LENGTH_SHORT).show()} )
+    }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.nav_logout ->{
+                signOut()
                 startActivity(Intent(applicationContext, MainActivity::class.java))
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                 finish()

@@ -16,12 +16,17 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 
     class Carrito : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var listView: ListView
+    lateinit var mGoogleSignInClient: GoogleSignInClient
 
     var carritoList = ArrayList<prod>()
     var carritoAdapter: CarritoAdapter? = null
@@ -33,7 +38,10 @@ import com.google.android.material.navigation.NavigationView
         setContentView(R.layout.activity_carrito)
 
         listView = findViewById(R.id.listView)
-
+        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         val fab: FloatingActionButton = findViewById(R.id.fab)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -81,7 +89,9 @@ import com.google.android.material.navigation.NavigationView
         cargarProductos()
     }
 
-
+        private fun signOut(){
+            mGoogleSignInClient.signOut().addOnCompleteListener(this, OnCompleteListener<Void?> {Toast.makeText(this,"sesion terminada", Toast.LENGTH_SHORT).show()} )
+        }
     fun cargarProductos(){
         val collectionCarrito = DbSingleton.getDb().collection("carrito")
         val query = collectionCarrito.whereEqualTo("id_usuario", UserSingleton.getUsuario().id)
@@ -124,6 +134,7 @@ import com.google.android.material.navigation.NavigationView
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.nav_logout ->{
+                signOut()
                 startActivity(Intent(applicationContext, MainActivity::class.java))
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                 finish()

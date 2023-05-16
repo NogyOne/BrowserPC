@@ -71,14 +71,6 @@ class Registro : AppCompatActivity() {
             collectionCart.add(carrito).addOnSuccessListener { cartReference ->
                 Log.d(TAG, "Carrito creado y agregado con ID: ${cartReference.id}")
 
-                /*val carritoProds = Carrito_Productos(cartReference.id)
-                collectionCartProd.add(carritoProds).addOnSuccessListener { cartProdsReference ->
-                    Log.d(TAG, "CarritoProductos creado y agregado con ID: ${cartProdsReference.id} ${carritoProds.id_carrito}")
-                }
-                    .addOnFailureListener{ e ->
-                        Log.w(TAG, "Error al registrar CarritoProductos", e)
-                        result = false
-                    }*/
             }
                 .addOnFailureListener{ e ->
                     Log.w(TAG, "Error al registrar carrito", e)

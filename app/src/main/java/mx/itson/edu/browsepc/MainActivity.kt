@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var mGoogleSignInClient: GoogleSignInClient
     val RC_SIGN_IN = 343
     val LOG_OUT = 234
+    var email: String = ""
+    var nombre: String = ""
     private val collection = DbSingleton.getDb().collection("usuarios")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +43,21 @@ class MainActivity : AppCompatActivity() {
         btnGmail.setOnClickListener {
             val sigInIntent = mGoogleSignInClient.signInIntent
             startActivityForResult(sigInIntent, RC_SIGN_IN)
+            /*Comparar si existe un usuario con el correo de la cuenta de gmail, sino existe se crea un usuario y setear en singleton*/
+            val queryUser = collection.whereEqualTo("email", email)
+
+            queryUser.get().addOnSuccessListener { documents ->
+                if(documents.size() == 1){
+                    val data = documents.documents.get(0).data
+                    val user = Usuario(documents.documents.get(0).id,data!!["username"] as String, data!!["email"] as String)
+                    UserSingleton.setUsuario(user)
+                } else {
+
+                    var user = Usuario(nombre, email)
+                    registro(user)
+                    UserSingleton.setUsuario(user)
+                }
+            }
         }
 
 
@@ -86,6 +103,44 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    fun registro(user: Usuario): Boolean {
+        var result: Boolean = true
+        val collectionFavs = DbSingleton.getDb().collection("favoritos")
+        val collectionCart = DbSingleton.getDb().collection("carrito")
+        val collectionCartProd = DbSingleton.getDb().collection("carrito_productos")
+        collection.add(user).addOnSuccessListener { userReference ->
+            UserSingleton.setUsuario(user)
+            Log.d(ContentValues.TAG, "Usuario agregado con ID: ${userReference.id}")
+
+            val carrito = CarritoDom(userReference.id)
+            val favoritos = FavoritosDom(userReference.id)
+
+            collectionCart.add(carrito).addOnSuccessListener { cartReference ->
+                Log.d(ContentValues.TAG, "Carrito creado y agregado con ID: ${cartReference.id}")
+
+            }
+                .addOnFailureListener{ e ->
+                    Log.w(ContentValues.TAG, "Error al registrar carrito", e)
+                    result = false
+                }
+
+            collectionFavs.add(favoritos).addOnSuccessListener { favsReference ->
+                Log.d(ContentValues.TAG, "Favoritos creado y agregado con ID: ${favsReference.id}")
+            }
+                .addOnFailureListener{ e ->
+                    Log.w(ContentValues.TAG, "Error al registrar favoritos", e)
+                    result = false
+                }
+        }
+            .addOnFailureListener{ e ->
+                Log.w(ContentValues.TAG, "Error al registrar usuario", e)
+                result = false
+            }
+
+        return result
+    }
+
     override fun onStart() {
         super.onStart()
 
@@ -125,7 +180,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, Bienvenida::class.java)
             //intent.putExtra("id", acct.getId())
             intent.putExtra("name", acct.getDisplayName())
-            //intent.putExtra("email", acct.getEmail())
+            intent.putExtra("email", acct.getEmail())
+            email= acct.email.toString()
+            nombre = acct.displayName.toString()
             startActivityForResult(intent, LOG_OUT)
 
         }

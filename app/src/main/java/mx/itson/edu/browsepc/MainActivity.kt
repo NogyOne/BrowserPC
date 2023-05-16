@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             .requestEmail()
             .build()
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
+        signOut()
         btnGmail.setOnClickListener {
             val sigInIntent = mGoogleSignInClient.signInIntent
             startActivityForResult(sigInIntent, RC_SIGN_IN)
@@ -179,7 +179,7 @@ class MainActivity : AppCompatActivity() {
         if(acct != null){
             val intent = Intent(this, Bienvenida::class.java)
             //intent.putExtra("id", acct.getId())
-            intent.putExtra("name", acct.getDisplayName())
+            intent.putExtra("username", acct.getDisplayName())
             intent.putExtra("email", acct.getEmail())
             startActivityForResult(intent, LOG_OUT)
 

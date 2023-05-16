@@ -16,7 +16,7 @@ class  Bienvenida : AppCompatActivity() {
         val bundle = intent.extras
 
         if(bundle != null){
-            username.setText(bundle.getString("name"))
+            username.setText(bundle.getString("username"))
         }
 
         empezar.setOnClickListener{

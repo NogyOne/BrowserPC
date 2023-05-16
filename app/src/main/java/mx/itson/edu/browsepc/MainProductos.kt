@@ -38,8 +38,6 @@ import java.io.IOException
 class MainProductos: AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var listView: ListView
     lateinit var mGoogleSignInClient: GoogleSignInClient
-    val RC_SIGN_IN = 343
-    val LOG_OUT = 234
     lateinit var toggle: ActionBarDrawerToggle
     var adapterOfertas: ProductoAdapter? = null
     var ofertasList = ArrayList<prod>()

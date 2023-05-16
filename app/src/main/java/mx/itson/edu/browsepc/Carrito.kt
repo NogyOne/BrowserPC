@@ -20,7 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 
-class Carrito : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    class Carrito : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var listView: ListView
 
     var carritoList = ArrayList<prod>()
@@ -77,7 +77,7 @@ class Carrito : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             startActivity(intent)
         }
 
-        carritoAdapter = CarritoAdapter(this, carritoList)
+        carritoAdapter = CarritoAdapter(this, carritoList, this)
         cargarProductos()
     }
 
@@ -114,6 +114,11 @@ class Carrito : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             tv_total.setText(total.toString())
             listView.adapter = carritoAdapter
         }
+    }
+
+    fun actualizarListaCarrito() {
+        carritoList.clear() // Limpia la lista actual de favoritos
+        cargarProductos() // Vuelve a cargar los productos favoritos desde la base de datos
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -157,10 +162,12 @@ class Carrito : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
 class CarritoAdapter : BaseAdapter {
     var productos = ArrayList<prod>()
     var contexto: Context? = null
+    lateinit var carrito: Carrito
 
-    constructor(context: Context, productos: ArrayList<prod>) {
+    constructor(context: Context, productos: ArrayList<prod>, car: Carrito) {
         this.productos = productos
         this.contexto = context
+        this.carrito = car
     }
 
     override fun getCount(): Int {
@@ -219,6 +226,7 @@ class CarritoAdapter : BaseAdapter {
                         }
                     }
                     document.reference.set(docFav)
+                    carrito.actualizarListaCarrito()
                 }
                 Toast.makeText(contexto, "Se ha eliminado el producto del carrito", Toast.LENGTH_SHORT).show()
                 Log.d(ContentValues.TAG, "Se eliminó")

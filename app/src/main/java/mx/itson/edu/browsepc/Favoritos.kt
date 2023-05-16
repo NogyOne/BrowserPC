@@ -15,6 +15,7 @@ import android.widget.*
 import com.bumptech.glide.Glide
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.recreate
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -88,8 +89,7 @@ class Favoritos : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
             var intent: Intent = Intent(this, Carrito::class.java)
             startActivity(intent)
         }
-
-        favsAdapter = FavoritosAdapter(this, favoritosList)
+        favsAdapter = FavoritosAdapter(this, favoritosList,this)
         cargarProductos()
     }
 
@@ -121,6 +121,11 @@ class Favoritos : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         }.addOnFailureListener{e ->
             Log.w(ContentValues.TAG, "Error al obtener los documentos", e)
         }
+    }
+
+    fun actualizarListaFavoritos() {
+        favoritosList.clear() // Limpia la lista actual de favoritos
+        cargarProductos() // Vuelve a cargar los productos favoritos desde la base de datos
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -164,10 +169,12 @@ class Favoritos : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
 class FavoritosAdapter : BaseAdapter {
     var productos = ArrayList<prod>()
     var contexto: Context? = null
+    lateinit var favoritosActivity: Favoritos
 
-    constructor(context: Context, productos: ArrayList<prod>) {
+    constructor(context: Context, productos: ArrayList<prod>, act: Favoritos) {
         this.productos = productos
         this.contexto = context
+        this.favoritosActivity = act
     }
 
     override fun getCount(): Int {
@@ -226,17 +233,17 @@ class FavoritosAdapter : BaseAdapter {
                         }
                     }
                     document.reference.set(docFav)
+                    favoritosActivity.actualizarListaFavoritos()
                 }
                 Toast.makeText(contexto, "Se ha eliminado el producto de favoritos", Toast.LENGTH_SHORT).show()
                 Log.d(ContentValues.TAG, "Se eliminó")
             }
-                .addOnFailureListener{ e->
-                    Toast.makeText(contexto, "Error al eliminar el producto de favoritos", Toast.LENGTH_SHORT).show()
-                    Log.w(ContentValues.TAG, "Error al obtener los documentos", e)
-                }
+            .addOnFailureListener{ e->
+                Toast.makeText(contexto, "Error al eliminar el producto de favoritos", Toast.LENGTH_SHORT).show()
+                Log.w(ContentValues.TAG, "Error al obtener los documentos", e)
+            }
+
         }
-
-
         return vista
     }
 }
